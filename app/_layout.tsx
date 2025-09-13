@@ -1,36 +1,14 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
 import { Stack } from "expo-router";
-import { Pressable, Text } from "react-native";
 import "./../global.css";
+
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function RootLayout() {
   return (
-    <Stack
-      screenOptions={{
-        headerStyle: { backgroundColor: "#006652" },
-        headerTitle: () => (
-          <Text
-            style={{
-              color: "#f7daa4",
-              fontSize: 18,
-              marginLeft: 10,
-            }}
-          >
-            Упражнения
-          </Text>
-        ),
-      }}
-    >
-      <Stack.Screen
-        name="index"
-        options={{
-          headerLeft: () => (
-            <Pressable onPress={() => console.log("Нажали на иконку!")}>
-              <Ionicons name="menu-sharp" size={34} color="#f7daa4" />
-            </Pressable>
-          ),
-        }}
-      />
-    </Stack>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Stack>
+        <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
+      </Stack>
+    </GestureHandlerRootView>
   );
 }
