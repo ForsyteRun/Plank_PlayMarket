@@ -1,12 +1,10 @@
-import type { IExercice } from "@/types/plank";
 import { View } from "react-native";
 
 interface IDotsProps {
-  exercices: IExercice[];
   count: number;
 }
 
-export default function Dots({ exercices, count }: IDotsProps) {
+export default function Dots({ count }: IDotsProps) {
   return (
     <View
       style={{
@@ -18,31 +16,29 @@ export default function Dots({ exercices, count }: IDotsProps) {
         marginTop: 5,
       }}
     >
-      {exercices.length > 3 && (
-        <View
-          style={{
-            alignSelf: "center",
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          {exercices.slice(0, count).map((_, index) => {
-            return (
-              <View
-                key={index}
-                style={{
-                  width: 6,
-                  height: 6,
-                  borderRadius: 4,
-                  backgroundColor: "black",
-                  marginHorizontal: 2,
-                }}
-              />
-            );
-          })}
-        </View>
-      )}
+      <View
+        style={{
+          alignSelf: "center",
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {Array.from({ length: count }).map((_, index) => {
+          return (
+            <View
+              key={index}
+              style={{
+                width: 6,
+                height: 6,
+                borderRadius: 4,
+                backgroundColor: "black",
+                marginHorizontal: 2,
+              }}
+            />
+          );
+        })}
+      </View>
     </View>
   );
 }
