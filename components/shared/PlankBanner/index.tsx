@@ -1,11 +1,12 @@
 import type { IPLank } from "@/types/plank";
 import { TouchableOpacity } from "react-native";
-import BannerImages from "./components/BannerImages";
+import { BannerImages, BannerInfo } from "./components";
 
 export default function PlankBanner({ title, exercices }: IPLank) {
   return (
-    <TouchableOpacity className="px-4">
+    <TouchableOpacity className="flex-row justify-start px-4">
       <BannerImages exercices={exercices} />
+      <BannerInfo title={title} exercices={exercices} />
     </TouchableOpacity>
   );
 }

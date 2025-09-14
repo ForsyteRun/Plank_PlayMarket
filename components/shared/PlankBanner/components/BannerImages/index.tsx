@@ -12,8 +12,9 @@ export default function BannerImages({ exercices }: IBannerImagesProps) {
 
   return (
     <View
+      style={{ width: "40%" }}
       className={cn({
-        "flex-row flex-wrap max-w-[160px] py-4": isMultiple,
+        "flex-row flex-wrap py-4": isMultiple,
       })}
     >
       {exercices.slice(0, 3).map((exercice, index) => {
