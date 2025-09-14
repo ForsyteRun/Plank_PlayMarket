@@ -14,7 +14,7 @@ export default function DrawerLayout() {
         headerTitleStyle: { color: "#fbf9e6", fontSize: 18 },
         headerTitle: "Упражнения",
         headerTintColor: "#fbf9e6",
-        drawerActiveBackgroundColor: "#b2e6ed",
+        drawerActiveBackgroundColor: "#b2edea",
         drawerActiveTintColor: "#b2e6ed",
         drawerInactiveTintColor: "#000",
         drawerLabelStyle: {
