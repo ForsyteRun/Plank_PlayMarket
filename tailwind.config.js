@@ -8,7 +8,8 @@ module.exports = {
         PRIMARY: "#01a79e",
         SECONDARY: "#b2edea",
         BG_WHITE: "#fbf9e6",
-        GREY: "#636363"
+        GREY: "#636363",
+        ORANGE: "#FFA726",
       }
     },
   },
