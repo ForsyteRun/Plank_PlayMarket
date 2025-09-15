@@ -10,7 +10,7 @@ export default function DrawerLayout() {
     <Drawer
       screenOptions={{
         drawerStyle: { backgroundColor: "#d8e4e8" },
-        headerStyle: { backgroundColor: "#3BA79B" },
+        headerStyle: { height: 110, backgroundColor: "#3BA79B" },
         headerTitleStyle: { color: "#fbf9e6", fontSize: 18 },
         headerTitle: "Упражнения",
         headerTintColor: "#fbf9e6",
