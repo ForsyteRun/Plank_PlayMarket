@@ -1,8 +1,9 @@
 import NewPlankForm from "@/components/NewPlankForm";
 import NewPlankHeader from "@/components/NewPlankHeader";
+import PlankBannerList from "@/components/PlankBannerList";
 import type { IExercice } from "@/types/plank";
 import { useState } from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 
 export default function NewPlankScreen() {
   const [excercice, setExcercice] = useState<IExercice>();
@@ -13,10 +14,7 @@ export default function NewPlankScreen() {
     <View className="flex-1 bg-BG_WHITE ">
       <NewPlankHeader title={title} />
       <NewPlankForm title={title} />
-
-      <View>
-        <Text>newPlankScreen</Text>
-      </View>
+      <PlankBannerList />
     </View>
   );
 }

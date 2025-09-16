@@ -9,6 +9,7 @@ module.exports = {
         SECONDARY: "#b2edea",
         BG_WHITE: "#fbf9e6",
         GREY: "#636363",
+        LIGHT_GREY: "#e3e8e8",
         ORANGE: "#FFA726",
         LIGHT_GREEN: "#65a198",
       }
