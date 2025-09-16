@@ -18,10 +18,10 @@ export default function NewPlankForm({ title }: INewPlankFormProps) {
 
   return (
     <View
-      className="flex justify-between bg-SECONDARY"
-      style={{ padding: containerPadding }}
+      className="pb-5 pt-2 bg-SECONDARY"
+      style={{ paddingHorizontal: containerPadding }}
     >
-      <View className="flex-row items-center gap-6">
+      <View className="h-20 flex-row items-center gap-6">
         <Animated.View style={animatedStyle}>
           <TextInput
             placeholder={title}
@@ -30,8 +30,8 @@ export default function NewPlankForm({ title }: INewPlankFormProps) {
             style={{
               borderWidth: isFocused ? 2 : 1,
               borderColor: isFocused ? "#000" : "#65a198",
-              borderRadius: 8,
-              paddingHorizontal: 12,
+              borderRadius: 4,
+              paddingHorizontal: isFocused ? 11 : 12,
               paddingVertical: 16,
               fontSize: 16,
             }}
@@ -39,7 +39,7 @@ export default function NewPlankForm({ title }: INewPlankFormProps) {
         </Animated.View>
         <AntDesign onPress={handleBlur} name="check" size={20} color="#000" />
       </View>
-      <Text className="mt-1 text-teal-800">Общее время: 00:00</Text>
+      <Text className=" text-teal-800">Общее время: 00:00</Text>
     </View>
   );
 }
