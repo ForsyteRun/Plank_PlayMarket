@@ -8,13 +8,8 @@ interface INewPlankFormProps {
 }
 
 export default function NewPlankForm({ title }: INewPlankFormProps) {
-  const {
-    isFocused,
-    handleFocus,
-    handleBlur,
-    animatedStyle,
-    containerPadding,
-  } = useNewPlankFormAnimation();
+  const { handleFocus, handleBlur, animatedStyle, containerPadding } =
+    useNewPlankFormAnimation();
 
   return (
     <View
@@ -22,16 +17,15 @@ export default function NewPlankForm({ title }: INewPlankFormProps) {
       style={{ paddingHorizontal: containerPadding }}
     >
       <View className="h-20 flex-row items-center gap-6">
-        <Animated.View style={animatedStyle}>
+        <Animated.View style={animatedStyle} className="rounded-lg">
           <TextInput
             placeholder={title}
             onFocus={handleFocus}
             onBlur={handleBlur}
             style={{
-              borderWidth: isFocused ? 2 : 1,
-              borderColor: isFocused ? "#000" : "#65a198",
+              borderColor: "transparent",
               borderRadius: 4,
-              paddingHorizontal: isFocused ? 11 : 12,
+              paddingHorizontal: 12,
               paddingVertical: 16,
               fontSize: 16,
             }}
