@@ -1,7 +1,8 @@
 import type { IPLank, TExerciceType } from "@/types/plank";
 import type { ImageSourcePropType } from "react-native";
 
-const images: Record<TExerciceType, ImageSourcePropType> = {
+export const IMAGES: Record<TExerciceType, ImageSourcePropType> = {
+  rest: require("./../assets/images/rest.png"),
   "Full plank": require("./../assets/images/Alice/Full_plank.png"),
   "Elbow plank": require("./../assets/images/Alice/Elbow_plank.png"),
   "Left leg plank": require("./../assets/images/Alice/Left_leg_plank.png"),
@@ -10,7 +11,6 @@ const images: Record<TExerciceType, ImageSourcePropType> = {
   "Right side plank": require("./../assets/images/Alice/Right_side_plank.png"),
   "Reverse plank": require("./../assets/images/Alice/Reverse_plank.png"),
   "Reverse elbow plank": require("./../assets/images/Alice/Reverse_elbow_plank.png"),
-  rest: require("./../assets/images/rest.png"),
 };
 
 export const defaultPlankList: IPLank[] = [
@@ -35,6 +35,6 @@ export const defaultPlankList: IPLank[] = [
   ...plank,
   exercices: plank.exercices.map((exercice) => ({
     ...exercice,
-    image: images[exercice.type as TExerciceType],
+    image: IMAGES[exercice.type as TExerciceType],
   })),
 }));
