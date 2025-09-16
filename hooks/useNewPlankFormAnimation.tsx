@@ -7,7 +7,7 @@ import {
 } from "react-native-reanimated";
 
 const containerPadding = 20;
-export const NewPlankFormAnimation = () => {
+export const useNewPlankFormAnimation = () => {
   const [isFocused, setIsFocused] = useState(false);
 
   const width = Dimensions.get("window").width;
@@ -30,9 +30,9 @@ export const NewPlankFormAnimation = () => {
 
   return {
     isFocused,
-    handleFocus,
-    handleBlur,
     animatedStyle,
     containerPadding,
+    handleFocus,
+    handleBlur,
   };
 };

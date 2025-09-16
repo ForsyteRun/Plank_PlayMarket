@@ -1,16 +1,20 @@
-import { NewPlankFormAnimation } from "@/hooks";
+import { useNewPlankFormAnimation } from "@/hooks";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { Text, TextInput, View } from "react-native";
 import Animated from "react-native-reanimated";
 
-export default function NewPlankForm() {
+interface INewPlankFormProps {
+  title: string;
+}
+
+export default function NewPlankForm({ title }: INewPlankFormProps) {
   const {
     isFocused,
     handleFocus,
     handleBlur,
     animatedStyle,
     containerPadding,
-  } = NewPlankFormAnimation();
+  } = useNewPlankFormAnimation();
 
   return (
     <View
@@ -20,7 +24,7 @@ export default function NewPlankForm() {
       <View className="flex-row items-center gap-6">
         <Animated.View style={animatedStyle}>
           <TextInput
-            placeholder="Новое Упражнение"
+            placeholder={title}
             onFocus={handleFocus}
             onBlur={handleBlur}
             style={{

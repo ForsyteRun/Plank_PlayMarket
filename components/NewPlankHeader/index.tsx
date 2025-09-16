@@ -3,7 +3,11 @@ import { Dimensions, Text, View } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { useRouter } from "expo-router";
 
-export default function NewPlankHeader() {
+interface INewPlankHeaderProps {
+  title: string;
+}
+
+export default function NewPlankHeader({ title }: INewPlankHeaderProps) {
   const router = useRouter();
   const height = Dimensions.get("window").height;
 
@@ -33,7 +37,7 @@ export default function NewPlankHeader() {
               fontSize: 22,
             }}
           >
-            Новое Упражнение
+            {title}
           </Text>
         </View>
         <AntDesign name="check" size={20} color="#fbf9e6" />

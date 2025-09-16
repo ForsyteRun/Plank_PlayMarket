@@ -1,1 +1,1 @@
-export * from "./NewPlankFormAnimation";
+export * from "./useNewPlankFormAnimation";

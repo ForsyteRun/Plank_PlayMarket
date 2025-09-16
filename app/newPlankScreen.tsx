@@ -7,11 +7,12 @@ import { Text, View } from "react-native";
 export default function NewPlankScreen() {
   const [excercice, setExcercice] = useState<IExercice>();
   const [isSubmit, setIsSubmit] = useState(false);
+  const [title, setTitle] = useState("Новое Упражнение");
 
   return (
     <View className="flex-1 bg-BG_WHITE ">
-      <NewPlankHeader />
-      <NewPlankForm />
+      <NewPlankHeader title={title} />
+      <NewPlankForm title={title} />
 
       <View>
         <Text>newPlankScreen</Text>
