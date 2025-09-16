@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Dimensions } from "react-native";
+import { Dimensions, Keyboard } from "react-native";
 import {
   useAnimatedStyle,
   useSharedValue,
@@ -20,12 +20,13 @@ export const useNewPlankFormAnimation = () => {
 
   const handleFocus = () => {
     setIsFocused(true);
-    inputWidth.value = withTiming(width - 80, { duration: 300 });
+    inputWidth.value = withTiming(startWidth - 40, { duration: 300 });
   };
 
   const handleBlur = () => {
     setIsFocused(false);
-    inputWidth.value = withTiming(width + 70, { duration: 300 });
+    inputWidth.value = withTiming(startWidth, { duration: 300 });
+    Keyboard.dismiss();
   };
 
   return {

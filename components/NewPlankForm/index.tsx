@@ -37,7 +37,7 @@ export default function NewPlankForm({ title }: INewPlankFormProps) {
             }}
           />
         </Animated.View>
-        <AntDesign name="check" size={20} color="#000" />
+        <AntDesign onPress={handleBlur} name="check" size={20} color="#000" />
       </View>
       <Text className="mt-1 text-teal-800">Общее время: 00:00</Text>
     </View>
