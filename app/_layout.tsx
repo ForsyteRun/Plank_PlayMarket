@@ -1,7 +1,6 @@
 import { Stack } from "expo-router";
 import "./../global.css";
 
-import CustomHeader from "@/components/CustomHeader";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function RootLayout() {
@@ -15,8 +14,8 @@ export default function RootLayout() {
         <Stack.Screen
           name="newPlankScreen"
           options={{
+            headerShown: false,
             animation: "none",
-            header: () => <CustomHeader />,
           }}
         />
       </Stack>

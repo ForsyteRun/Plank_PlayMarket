@@ -5,7 +5,7 @@ import { View } from "react-native";
 
 export default function Index() {
   return (
-    <View className="flex-1 bg-[#fbf9e6]">
+    <View className="flex-1 bg-BG_WHITE">
       <DefaultPlankList />
       <UserPlankList />
       <NewPlankButton />

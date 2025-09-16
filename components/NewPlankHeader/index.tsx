@@ -1,15 +1,17 @@
-import { Text, View } from "react-native";
+import { Dimensions, Text, View } from "react-native";
 
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { useRouter } from "expo-router";
-export default function CustomHeader() {
+
+export default function NewPlankHeader() {
   const router = useRouter();
+  const height = Dimensions.get("window").height;
 
   const handleBack = () => router.push("/(drawer)");
   return (
     <View
       style={{
-        height: 110,
+        height: height * 0.12,
         backgroundColor: "#3BA79B",
         display: "flex",
         alignItems: "flex-start",

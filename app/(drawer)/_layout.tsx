@@ -3,14 +3,16 @@ import Fontisto from "@expo/vector-icons/Fontisto";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { DrawerItem, DrawerItemList } from "@react-navigation/drawer";
 import { Drawer } from "expo-router/drawer";
-import { Image, View } from "react-native";
+import { Dimensions, Image, View } from "react-native";
 
 export default function DrawerLayout() {
+  const height = Dimensions.get("window").height;
+
   return (
     <Drawer
       screenOptions={{
         drawerStyle: { backgroundColor: "#d8e4e8" },
-        headerStyle: { height: 110, backgroundColor: "#3BA79B" },
+        headerStyle: { height: height * 0.12, backgroundColor: "#3BA79B" },
         headerTitleStyle: { color: "#fbf9e6", fontSize: 18 },
         headerTitle: "Упражнения",
         headerTintColor: "#fbf9e6",

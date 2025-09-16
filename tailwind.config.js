@@ -10,6 +10,7 @@ module.exports = {
         BG_WHITE: "#fbf9e6",
         GREY: "#636363",
         ORANGE: "#FFA726",
+        LIGHT_GREEN: "#65a198",
       }
     },
   },

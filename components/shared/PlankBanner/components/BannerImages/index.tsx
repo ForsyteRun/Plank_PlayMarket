@@ -12,7 +12,7 @@ export default function BannerImages({ exercices }: IBannerImagesProps) {
 
   return (
     <View
-      style={{ width: "40%" }}
+      style={{ width: "45%" }}
       className={cn({
         "flex-row flex-wrap py-4": isMultiple,
       })}
@@ -22,8 +22,8 @@ export default function BannerImages({ exercices }: IBannerImagesProps) {
           <Image
             source={exercice.image}
             style={{
-              width: isMultiple ? 70 : 120,
-              height: isMultiple ? 40 : 80,
+              width: isMultiple ? 60 : 120,
+              height: isMultiple ? 30 : 80,
             }}
             resizeMode="contain"
             key={index}
