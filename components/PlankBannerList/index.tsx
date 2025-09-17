@@ -1,5 +1,5 @@
 import AddPlankModal from "@/components/AddPlankModal";
-import SelectedExerciceBanner from "@/components/shared/SelectedExerciceBanner";
+import SelectedExerciceBannerList from "@/components/shared/SelectedExerciceBannerLIst";
 import type { IExercice } from "@/types/plank";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { View } from "react-native";
@@ -26,7 +26,7 @@ export default function PlankBannerList({
         setModalVisible={setModalVisible}
         setExercices={setExercices}
       />
-      <SelectedExerciceBanner
+      <SelectedExerciceBannerList
         exercices={exercises}
         setModalVisible={setModalVisible}
       />
