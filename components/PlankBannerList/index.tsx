@@ -1,16 +1,23 @@
 import AddPlankModal from "@/components/AddPlankModal";
 import SelectedExerciceBanner from "@/components/shared/SelectedExerciceBanner";
 import type { IExercice } from "@/types/plank";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { View } from "react-native";
 
-export default function PlankBannerList() {
+interface IPlankBannerListProps {
+  exercises: IExercice[];
+  setExercices: Dispatch<SetStateAction<IExercice[]>>;
+}
+
+export default function PlankBannerList({
+  exercises,
+  setExercices,
+}: IPlankBannerListProps) {
   const [modalVisible, setModalVisible] = useState(false);
-  const [exercices, setExercices] = useState<IExercice[]>([]);
 
   useEffect(() => {
     setModalVisible(false);
-  }, [exercices.length]);
+  }, [exercises.length]);
 
   return (
     <View className="flex-1">
@@ -20,7 +27,7 @@ export default function PlankBannerList() {
         setExercices={setExercices}
       />
       <SelectedExerciceBanner
-        exercices={exercices}
+        exercices={exercises}
         setModalVisible={setModalVisible}
       />
     </View>

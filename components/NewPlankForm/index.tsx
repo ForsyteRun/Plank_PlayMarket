@@ -5,9 +5,13 @@ import Animated from "react-native-reanimated";
 
 interface INewPlankFormProps {
   title: string;
+  totalExercicesTime: string;
 }
 
-export default function NewPlankForm({ title }: INewPlankFormProps) {
+export default function NewPlankForm({
+  title,
+  totalExercicesTime,
+}: INewPlankFormProps) {
   const { handleFocus, handleBlur, animatedStyle, containerPadding } =
     useNewPlankFormAnimation();
 
@@ -33,7 +37,7 @@ export default function NewPlankForm({ title }: INewPlankFormProps) {
         </Animated.View>
         <AntDesign onPress={handleBlur} name="check" size={20} color="#000" />
       </View>
-      <Text className=" text-teal-800">Общее время: 00:00</Text>
+      <Text className=" text-teal-800">Общее время: {totalExercicesTime}</Text>
     </View>
   );
 }
