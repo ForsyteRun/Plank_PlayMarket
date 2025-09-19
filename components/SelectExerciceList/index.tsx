@@ -21,6 +21,7 @@ export default function SelectExerciceList({
     rowExercice: [TExerciceType, ImageSourcePropType]
   ) => {
     const exercice: IExercice = {
+      id: Date.now().toString(),
       time: "00:20",
       type: rowExercice[0],
       image: rowExercice[1],

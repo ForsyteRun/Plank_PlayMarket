@@ -6,6 +6,7 @@ export interface IPLank {
 }
 
 export interface IExercice {
+  id: string;
   type: TExerciceType;
   time: string;
   image: ImageSourcePropType;

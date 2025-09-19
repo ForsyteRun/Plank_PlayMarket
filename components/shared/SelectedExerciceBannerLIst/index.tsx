@@ -6,11 +6,13 @@ import SelectedExerciceBanner from "./components/SelectedExerciceBanner";
 
 interface ISelectedExerciceBannerListProps {
   exercices: IExercice[];
+  setExercices: Dispatch<SetStateAction<IExercice[]>>;
   setModalVisible: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function SelectedExerciceBannerList({
   exercices,
+  setExercices,
   setModalVisible,
 }: ISelectedExerciceBannerListProps) {
   return (
@@ -34,6 +36,7 @@ export default function SelectedExerciceBannerList({
             isRest={isRest}
             isFirst={isFirst}
             index={index + 1}
+            setExercices={setExercices}
           />
         );
       }}

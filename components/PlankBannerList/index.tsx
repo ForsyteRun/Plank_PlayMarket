@@ -28,6 +28,7 @@ export default function PlankBannerList({
       />
       <SelectedExerciceBannerList
         exercices={exercises}
+        setExercices={setExercices}
         setModalVisible={setModalVisible}
       />
     </View>

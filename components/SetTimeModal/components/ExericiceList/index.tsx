@@ -1,119 +1,41 @@
-import { default as React, useEffect, useRef } from "react";
-import { FlatList, InteractionManager, StyleSheet, View } from "react-native";
-import Animated, {
-  useAnimatedScrollHandler,
-  useSharedValue,
-} from "react-native-reanimated";
+import { memo, useState } from "react";
+import { Text, View } from "react-native";
+import WheelPicker from "../WheelPicker";
 
 const TIMES = Array.from({ length: 60 }, (_, i) => ({
-  label: (i + 1).toString(),
-  value: i + 1,
+  label: i.toString(),
+  value: i,
 }));
-
-const ITEM_HEIGHT = 46;
-const VISIBLE_ITEMS = 5;
 
 const LOOP_DATA = Array.from({ length: 100 }, () => TIMES).flat();
 
 export default function ExericiceList() {
-  const scrollY = useSharedValue(0);
-  const listRef = useRef<FlatList>(null);
-
-  const onScroll = useAnimatedScrollHandler({
-    onScroll: (event) => {
-      scrollY.value = event.contentOffset.y;
-    },
-  });
-
-  useEffect(() => {
-    const task = InteractionManager.runAfterInteractions(() => {
-      listRef.current?.scrollToIndex({
-        index: 10,
-        animated: false,
-      });
-    });
-
-    return () => task.cancel();
-  }, []);
+  const [value1, setValue1] = useState(TIMES[0].label);
+  const [value2, setValue2] = useState(TIMES[0].label);
 
   return (
-    <View
-      className="w-full flex-row items-center justify-center"
-      style={{ height: ITEM_HEIGHT * VISIBLE_ITEMS }}
-    >
-      <Animated.FlatList
-        ref={listRef}
-        data={LOOP_DATA}
-        keyExtractor={(_, index) => index.toString()}
-        showsVerticalScrollIndicator={false}
-        snapToInterval={ITEM_HEIGHT}
-        decelerationRate="fast"
-        contentContainerStyle={{
-          width: "100%",
-          paddingTop: ITEM_HEIGHT * Math.floor(VISIBLE_ITEMS / 2),
-          paddingBottom: ITEM_HEIGHT * Math.floor(VISIBLE_ITEMS / 2),
-        }}
-        onScroll={onScroll}
-        scrollEventThrottle={16}
-        renderItem={({ item, index }) => (
-          <WheelItem label={item.label} index={index} scrollY={scrollY} />
-        )}
-        getItemLayout={(_, index) => ({
-          length: ITEM_HEIGHT,
-          offset: ITEM_HEIGHT * index,
-          index,
-        })}
-      />
+    <View className="flex-row justify-center items-center gap-2">
+      <View className="relative">
+        <WheelPicker data={LOOP_DATA} setValue={setValue1} />
+        <BorderItem />
+      </View>
+
+      <Text className="text-2xl text-black mx-1">:</Text>
+
+      <View className="relative">
+        <WheelPicker data={LOOP_DATA} setValue={setValue2} />
+        <BorderItem />
+      </View>
     </View>
   );
 }
 
-import { Text } from "react-native";
-import { interpolate, useAnimatedStyle } from "react-native-reanimated";
-
-interface ItemProps {
-  label: string;
-  index: number;
-  scrollY: number;
-}
-
-export function WheelItem({ label, index, scrollY }: ItemProps) {
-  const animatedStyle = useAnimatedStyle(() => {
-    const position = index * ITEM_HEIGHT - scrollY.value;
-
-    const opacity = interpolate(
-      position,
-      [-ITEM_HEIGHT * 2, 0, ITEM_HEIGHT * 2],
-      [0.3, 1, 0.3]
-    );
-
-    const scale = interpolate(
-      position,
-      [-ITEM_HEIGHT * 2, 0, ITEM_HEIGHT * 2],
-      [0.8, 1, 0.8]
-    );
-
-    return {
-      opacity,
-      transform: [{ scale }],
-    };
-  });
-
+const BorderItem = memo(() => {
   return (
-    <Animated.View style={[styles.item, animatedStyle]}>
-      <Text style={styles.text}>{label}</Text>
-    </Animated.View>
+    <View
+      className="absolute top-1/2 w-3/4 self-center border-y border-black"
+      style={{ marginTop: -23, height: 46 }}
+      pointerEvents="none"
+    />
   );
-}
-
-const styles = StyleSheet.create({
-  item: {
-    height: ITEM_HEIGHT,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  text: {
-    fontSize: 22,
-    color: "#000",
-  },
 });
