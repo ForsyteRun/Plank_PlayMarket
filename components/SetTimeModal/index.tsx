@@ -1,21 +1,50 @@
 import { IExercice } from "@/types/plank";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { View } from "react-native";
 import ExericiceList from "./components/ExericiceList";
 import Footer from "./components/Footer";
 import Title from "./components/Title";
 
 interface ISetTimeModalProps {
+  id: string;
   setExercices: Dispatch<SetStateAction<IExercice[]>>;
+  handleBannerClick: () => void;
 }
 
-export default function SetTimeModal({ setExercices }: ISetTimeModalProps) {
+export default function SetTimeModal({
+  id,
+  setExercices,
+  handleBannerClick,
+}: ISetTimeModalProps) {
+  const [mins, setMins] = useState("00");
+  const [sec, setSec] = useState("00");
+
+  const handleTime = () => {
+    if (mins === "00" && sec === "00") {
+      setSec("20");
+      return;
+    }
+
+    setExercices((prev) =>
+      prev.map((item) =>
+        item.id === id
+          ? {
+              ...item,
+              time: `${String(mins).padStart(2, "0")}:${String(sec).padStart(2, "0")}`,
+            }
+          : item
+      )
+    );
+
+    handleBannerClick();
+  };
+
   return (
     <View className="w-full flex-1 justify-center items-center bg-black/50">
       <View className="flex w-[320px] bg-[#cffaf2] rounded-lg items-center overflow-hidden">
         <Title />
-        <ExericiceList />
-        <Footer />
+        <ExericiceList setMins={setMins} setSec={setSec} />
+        <Footer handleTime={handleTime} handleBannerClick={handleBannerClick} />
       </View>
     </View>
   );

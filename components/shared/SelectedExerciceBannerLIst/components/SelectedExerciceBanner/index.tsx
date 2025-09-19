@@ -22,14 +22,14 @@ export default function SelectedExerciceBanner({
 }: ISelectedExerciceBannerProps) {
   const [isOpen, setOpen] = useState(false);
 
-  const handleBannerClick = (id: string) => {
+  const handleBannerClick = () => {
     setOpen((prev) => !prev);
   };
 
   return (
     <View>
       <Pressable
-        onPress={() => handleBannerClick(item.id)}
+        onPress={handleBannerClick}
         className={cn("flex-row items-center justify-between px-5", {
           "pt-6": isFirst,
         })}
@@ -65,7 +65,11 @@ export default function SelectedExerciceBanner({
         statusBarTranslucent={true}
         onRequestClose={() => setOpen(false)}
       >
-        <SetTimeModal setExercices={setExercices} />
+        <SetTimeModal
+          id={item.id}
+          setExercices={setExercices}
+          handleBannerClick={handleBannerClick}
+        />
       </Modal>
     </View>
   );
