@@ -1,11 +1,11 @@
 import NewPlankForm from "@/components/NewPlankForm";
 import NewPlankHeader from "@/components/NewPlankHeader";
 import PlankBannerList from "@/components/PlankBannerList";
+import SubmitInfo from "@/components/shared/SelectedExerciceBannerLIst/components/SubmitInfo";
 import { useEcerciseSetSubmit } from "@/hooks";
 import type { IExercice } from "@/types/plank";
 import { sumExerciceTimes } from "@/utils/sumExerciceTimes";
 import { useState } from "react";
-import { Text } from "react-native";
 import {
   SafeAreaView,
   useSafeAreaInsets,
@@ -43,7 +43,7 @@ export default function NewPlankScreen() {
         handleEditExercise={handleEditExercise}
       />
       {submitted ? (
-        <Text>ok</Text>
+        <SubmitInfo totalExercicesTime={totalExercicesTime} />
       ) : (
         <NewPlankForm
           edit={edit}

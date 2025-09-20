@@ -15,6 +15,7 @@ interface ISelectedExerciceBannerProps {
   isFirst: boolean;
   isRest: boolean;
   index: number;
+  submitted: boolean;
   setExercices: Dispatch<SetStateAction<IExercice[]>>;
 }
 
@@ -23,6 +24,7 @@ export default function SelectedExerciceBanner({
   isRest,
   isFirst,
   index,
+  submitted,
   setExercices,
 }: ISelectedExerciceBannerProps) {
   const swipeableRef = useRef<SwipeableItemImperativeRef>(null);
@@ -62,6 +64,7 @@ export default function SelectedExerciceBanner({
       snapPointsLeft={[80]}
       activationThreshold={80}
       overSwipe={0}
+      swipeEnabled={!submitted}
       onChange={() => {}}
     >
       <ExerciceBanner
@@ -69,7 +72,7 @@ export default function SelectedExerciceBanner({
         index={index}
         isFirst={isFirst}
         isRest={isRest}
-        handleBannerOpen={handleOpen}
+        handleBannerOpen={!submitted ? handleOpen : () => {}}
       />
       <SetTimeModal
         id={item.id}

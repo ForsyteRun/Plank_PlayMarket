@@ -44,7 +44,7 @@ export default function NewPlankForm({
         </Animated.View>
         <AntDesign onPress={handlePress} name="check" size={20} color="#000" />
       </View>
-      <Text className=" text-teal-800">Общее время: {totalExercicesTime}</Text>
+      <Text className="text-teal-800">Общее время: {totalExercicesTime}</Text>
     </View>
   );
 }

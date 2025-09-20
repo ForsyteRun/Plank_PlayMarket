@@ -38,6 +38,7 @@ export default function SelectedExerciceBannerList({
             isRest={isRest}
             isFirst={isFirst}
             index={index}
+            submitted={submitted}
             setExercices={setExercices}
           />
         );
