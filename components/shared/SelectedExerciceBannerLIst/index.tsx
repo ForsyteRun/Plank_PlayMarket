@@ -20,12 +20,10 @@ export default function SelectedExerciceBannerList({
       data={exercices}
       keyExtractor={(_, index) => index.toString()}
       showsVerticalScrollIndicator={false}
+      contentContainerStyle={{ paddingBottom: 24 }}
       ListFooterComponent={
         <AddNewPlankButton setModalVisible={setModalVisible} />
       }
-      contentContainerStyle={{
-        gap: 30,
-      }}
       renderItem={({ item, index }) => {
         const isRest = item.type === "rest";
         const isFirst = index === 0;
@@ -35,7 +33,7 @@ export default function SelectedExerciceBannerList({
             item={item}
             isRest={isRest}
             isFirst={isFirst}
-            index={index + 1}
+            index={index}
             setExercices={setExercices}
           />
         );

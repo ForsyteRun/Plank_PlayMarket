@@ -1,10 +1,14 @@
 import SetTimeModal from "@/components/SetTimeModal";
+import { useOpen } from "@/hooks";
 import type { IExercice } from "@/types/plank";
-import AntDesign from "@expo/vector-icons/AntDesign";
-import cn from "classnames";
-import { Dispatch, SetStateAction, useState } from "react";
-import { Image, Modal, Pressable, Text, View } from "react-native";
-import BannerCount from "../BannerCount";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { Dispatch, SetStateAction, useRef } from "react";
+import { TouchableOpacity, View } from "react-native";
+import SwipeableItem, {
+  SwipeableItemImperativeRef,
+  useSwipeableItemParams,
+} from "react-native-swipeable-item";
+import ExerciceBanner from "../ExerciceBanner";
 interface ISelectedExerciceBannerProps {
   item: IExercice;
   isFirst: boolean;
@@ -20,57 +24,53 @@ export default function SelectedExerciceBanner({
   index,
   setExercices,
 }: ISelectedExerciceBannerProps) {
-  const [isOpen, setOpen] = useState(false);
+  const swipeableRef = useRef<SwipeableItemImperativeRef>(null);
 
-  const handleBannerClick = () => {
-    setOpen((prev) => !prev);
+  const { isOpen, handleOpen } = useOpen();
+
+  const UnderlayRight = () => {
+    const { item } = useSwipeableItemParams<IExercice>();
+
+    return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: "red",
+          justifyContent: "center",
+          alignItems: "flex-end",
+          paddingRight: 20,
+        }}
+      >
+        <TouchableOpacity onPress={() => console.log(item.id)}>
+          <MaterialIcons name="delete" size={34} color="white" />
+        </TouchableOpacity>
+      </View>
+    );
   };
 
   return (
-    <View>
-      <Pressable
-        onPress={handleBannerClick}
-        className={cn("flex-row items-center justify-between px-5", {
-          "pt-6": isFirst,
-        })}
-      >
-        <View className="flex-row items-center gap-4">
-          <BannerCount count={index} />
-          <View className="flex gap-2">
-            <Text className="text-black font-medium text-md">{item.type}</Text>
-            <View className="flex-row items-center gap-2">
-              <AntDesign name="clock-circle" size={14} color="black" />
-              <Text className="text-black text-md">{item.time}</Text>
-            </View>
-          </View>
-        </View>
-        <View
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            flexBasis: "30%",
-          }}
-        >
-          <Image
-            source={item.image}
-            className={cn(isRest ? "w-7 h-7" : "w-24 h-16")}
-            resizeMode="contain"
-          />
-        </View>
-      </Pressable>
-      <Modal
-        transparent={true}
-        visible={isOpen}
-        statusBarTranslucent={true}
-        onRequestClose={() => setOpen(false)}
-      >
-        <SetTimeModal
-          id={item.id}
-          setExercices={setExercices}
-          handleBannerClick={handleBannerClick}
-        />
-      </Modal>
-    </View>
+    <SwipeableItem<unknown>
+      item={item}
+      ref={swipeableRef}
+      renderUnderlayLeft={() => <UnderlayRight />}
+      snapPointsLeft={[80]}
+      activationThreshold={80}
+      overSwipe={0}
+      onChange={() => {}}
+    >
+      <ExerciceBanner
+        item={item}
+        index={index}
+        isFirst={isFirst}
+        isRest={isRest}
+        handleBannerOpen={handleOpen}
+      />
+      <SetTimeModal
+        id={item.id}
+        setExercices={setExercices}
+        isOpen={isOpen}
+        handleBannerOpen={handleOpen}
+      />
+    </SwipeableItem>
   );
 }
