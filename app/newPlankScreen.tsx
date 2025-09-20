@@ -46,6 +46,7 @@ export default function NewPlankScreen() {
         <Text>ok</Text>
       ) : (
         <NewPlankForm
+          edit={edit}
           title={title}
           totalExercicesTime={totalExercicesTime}
           setTitle={setTitle}

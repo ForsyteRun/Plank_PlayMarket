@@ -5,12 +5,14 @@ import { Text, TextInput, View } from "react-native";
 import Animated from "react-native-reanimated";
 
 interface INewPlankFormProps {
+  edit: boolean;
   title: string;
   totalExercicesTime: string;
   setTitle: Dispatch<SetStateAction<string>>;
 }
 
 export default function NewPlankForm({
+  edit,
   title,
   totalExercicesTime,
   setTitle,
@@ -18,7 +20,7 @@ export default function NewPlankForm({
   const { handleFocus, handleBlur, animatedStyle, containerPadding } =
     useNewPlankFormAnimation();
 
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState(edit ? title : "");
   const handlePress = () => {
     setTitle(inputValue);
     handleBlur();
