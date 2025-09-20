@@ -1,19 +1,28 @@
 import { useNewPlankFormAnimation } from "@/hooks";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import { Dispatch, SetStateAction, useState } from "react";
 import { Text, TextInput, View } from "react-native";
 import Animated from "react-native-reanimated";
 
 interface INewPlankFormProps {
   title: string;
   totalExercicesTime: string;
+  setTitle: Dispatch<SetStateAction<string>>;
 }
 
 export default function NewPlankForm({
   title,
   totalExercicesTime,
+  setTitle,
 }: INewPlankFormProps) {
   const { handleFocus, handleBlur, animatedStyle, containerPadding } =
     useNewPlankFormAnimation();
+
+  const [inputValue, setInputValue] = useState("");
+  const handlePress = () => {
+    setTitle(inputValue);
+    handleBlur();
+  };
 
   return (
     <View
@@ -24,18 +33,14 @@ export default function NewPlankForm({
         <Animated.View style={animatedStyle} className="rounded-lg">
           <TextInput
             placeholder={title}
+            value={inputValue}
             onFocus={handleFocus}
             onBlur={handleBlur}
-            style={{
-              borderColor: "transparent",
-              borderRadius: 4,
-              paddingHorizontal: 12,
-              paddingVertical: 16,
-              fontSize: 16,
-            }}
+            onChange={(e) => setInputValue(e.nativeEvent.text)}
+            className="rounded px-3 py-4 text-base border border-transparent"
           />
         </Animated.View>
-        <AntDesign onPress={handleBlur} name="check" size={20} color="#000" />
+        <AntDesign onPress={handlePress} name="check" size={20} color="#000" />
       </View>
       <Text className=" text-teal-800">Общее время: {totalExercicesTime}</Text>
     </View>

@@ -5,9 +5,13 @@ import { useRouter } from "expo-router";
 
 interface INewPlankHeaderProps {
   title: string;
+  handleSubmit: () => void;
 }
 
-export default function NewPlankHeader({ title }: INewPlankHeaderProps) {
+export default function NewPlankHeader({
+  title,
+  handleSubmit,
+}: INewPlankHeaderProps) {
   const router = useRouter();
   const height = Dimensions.get("window").height;
 
@@ -40,7 +44,12 @@ export default function NewPlankHeader({ title }: INewPlankHeaderProps) {
             {title}
           </Text>
         </View>
-        <AntDesign name="check" size={20} color="#fbf9e6" />
+        <AntDesign
+          onPress={handleSubmit}
+          name="check"
+          size={20}
+          color="#fbf9e6"
+        />
       </View>
     </View>
   );
