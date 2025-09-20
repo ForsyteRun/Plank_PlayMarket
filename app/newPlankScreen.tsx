@@ -17,8 +17,14 @@ export default function NewPlankScreen() {
 
   const [exercises, setExercices] = useState<IExercice[]>([]);
 
-  const { title, setTitle, submittedTitle, handleSubmit } =
-    useEcerciseSetSubmit(INIT_TITLE);
+  const {
+    title,
+    setTitle,
+    submitted,
+    submittedTitle,
+    handleSubmit,
+    handleEditExercise,
+  } = useEcerciseSetSubmit(INIT_TITLE);
 
   const totalExercicesTime = sumExerciceTimes(exercises);
   return (
@@ -29,9 +35,11 @@ export default function NewPlankScreen() {
     >
       <NewPlankHeader
         title={submittedTitle || INIT_TITLE}
+        submitted={submitted}
         handleSubmit={handleSubmit}
+        handleEditExercise={handleEditExercise}
       />
-      {submittedTitle ? (
+      {submitted ? (
         <Text>ok</Text>
       ) : (
         <NewPlankForm

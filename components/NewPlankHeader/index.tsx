@@ -1,16 +1,20 @@
 import { Dimensions, Text, View } from "react-native";
 
 import AntDesign from "@expo/vector-icons/AntDesign";
+import Feather from "@expo/vector-icons/Feather";
 import { useRouter } from "expo-router";
-
 interface INewPlankHeaderProps {
   title: string;
+  submitted: boolean;
   handleSubmit: () => void;
+  handleEditExercise: () => void;
 }
 
 export default function NewPlankHeader({
   title,
+  submitted,
   handleSubmit,
+  handleEditExercise,
 }: INewPlankHeaderProps) {
   const router = useRouter();
   const height = Dimensions.get("window").height;
@@ -44,12 +48,21 @@ export default function NewPlankHeader({
             {title}
           </Text>
         </View>
-        <AntDesign
-          onPress={handleSubmit}
-          name="check"
-          size={20}
-          color="#fbf9e6"
-        />
+        {submitted ? (
+          <Feather
+            onPress={handleEditExercise}
+            name="edit-2"
+            size={20}
+            color="#fbf9e6"
+          />
+        ) : (
+          <AntDesign
+            onPress={handleSubmit}
+            name="check"
+            size={20}
+            color="#fbf9e6"
+          />
+        )}
       </View>
     </View>
   );
