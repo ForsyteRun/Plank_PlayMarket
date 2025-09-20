@@ -9,6 +9,7 @@ import SwipeableItem, {
   useSwipeableItemParams,
 } from "react-native-swipeable-item";
 import ExerciceBanner from "../ExerciceBanner";
+
 interface ISelectedExerciceBannerProps {
   item: IExercice;
   isFirst: boolean;
@@ -31,6 +32,10 @@ export default function SelectedExerciceBanner({
   const UnderlayRight = () => {
     const { item } = useSwipeableItemParams<IExercice>();
 
+    const handleDelete = (id: string) => {
+      setExercices((exercices) => exercices.filter((e) => e.id !== id));
+    };
+
     return (
       <View
         style={{
@@ -41,7 +46,7 @@ export default function SelectedExerciceBanner({
           paddingRight: 20,
         }}
       >
-        <TouchableOpacity onPress={() => console.log(item.id)}>
+        <TouchableOpacity onPress={() => handleDelete(item.id)}>
           <MaterialIcons name="delete" size={34} color="white" />
         </TouchableOpacity>
       </View>
@@ -50,6 +55,7 @@ export default function SelectedExerciceBanner({
 
   return (
     <SwipeableItem<unknown>
+      key={item.id}
       item={item}
       ref={swipeableRef}
       renderUnderlayLeft={() => <UnderlayRight />}
