@@ -6,12 +6,14 @@ import SelectedExerciceBanner from "./components/SelectedExerciceBanner";
 
 interface ISelectedExerciceBannerListProps {
   exercices: IExercice[];
+  submitted: boolean;
   setExercices: Dispatch<SetStateAction<IExercice[]>>;
   setModalVisible: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function SelectedExerciceBannerList({
   exercices,
+  submitted,
   setExercices,
   setModalVisible,
 }: ISelectedExerciceBannerListProps) {
@@ -22,7 +24,9 @@ export default function SelectedExerciceBannerList({
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{ paddingBottom: 24 }}
       ListFooterComponent={
-        <AddNewPlankButton setModalVisible={setModalVisible} />
+        !submitted ? (
+          <AddNewPlankButton setModalVisible={setModalVisible} />
+        ) : null
       }
       renderItem={({ item, index }) => {
         const isRest = item.type === "rest";

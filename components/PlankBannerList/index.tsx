@@ -6,11 +6,13 @@ import { View } from "react-native";
 
 interface IPlankBannerListProps {
   exercises: IExercice[];
+  submitted: boolean;
   setExercices: Dispatch<SetStateAction<IExercice[]>>;
 }
 
 export default function PlankBannerList({
   exercises,
+  submitted,
   setExercices,
 }: IPlankBannerListProps) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -28,6 +30,7 @@ export default function PlankBannerList({
       />
       <SelectedExerciceBannerList
         exercices={exercises}
+        submitted={submitted}
         setExercices={setExercices}
         setModalVisible={setModalVisible}
       />

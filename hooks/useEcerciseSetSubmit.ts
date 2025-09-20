@@ -6,20 +6,25 @@ export const useEcerciseSetSubmit = (INIT_TITLE: string) => {
 
   const [submitted, setSubmitted] = useState(false);
 
+  const [edit, setEdit] = useState(false);
+
   const handleSubmit = () => {
     setSubmittedTitle(title || INIT_TITLE);
     setSubmitted(true);
+    setEdit(false);
   };
 
   const handleEditExercise = () => {
     setSubmitted(false);
+    setEdit(true);
   };
 
   return {
+    edit,
     title,
-    setTitle,
     submitted,
     submittedTitle,
+    setTitle,
     handleSubmit,
     handleEditExercise,
   };

@@ -12,12 +12,15 @@ import {
 } from "react-native-safe-area-context";
 
 const INIT_TITLE = "Новое Упражнение";
+const EDIT = "Редактировать";
+
 export default function NewPlankScreen() {
   const { bottom } = useSafeAreaInsets();
 
   const [exercises, setExercices] = useState<IExercice[]>([]);
 
   const {
+    edit,
     title,
     setTitle,
     submitted,
@@ -34,7 +37,7 @@ export default function NewPlankScreen() {
       className="flex-1 bg-white"
     >
       <NewPlankHeader
-        title={submittedTitle || INIT_TITLE}
+        title={edit ? EDIT : submittedTitle || INIT_TITLE}
         submitted={submitted}
         handleSubmit={handleSubmit}
         handleEditExercise={handleEditExercise}
@@ -49,7 +52,11 @@ export default function NewPlankScreen() {
         />
       )}
 
-      <PlankBannerList exercises={exercises} setExercices={setExercices} />
+      <PlankBannerList
+        exercises={exercises}
+        setExercices={setExercices}
+        submitted={submitted}
+      />
     </SafeAreaView>
   );
 }
