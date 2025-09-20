@@ -2,7 +2,7 @@ import SetTimeModal from "@/components/SetTimeModal";
 import { useOpen } from "@/hooks";
 import type { IExercice } from "@/types/plank";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { Dispatch, SetStateAction, useRef } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import { TouchableOpacity, View } from "react-native";
 import SwipeableItem, {
   SwipeableItemImperativeRef,
@@ -27,7 +27,7 @@ export default function SelectedExerciceBanner({
   submitted,
   setExercices,
 }: ISelectedExerciceBannerProps) {
-  const swipeableRef = useRef<SwipeableItemImperativeRef>(null);
+  const swipeableRefs = useRef<SwipeableItemImperativeRef[]>([]);
 
   const { isOpen, handleOpen } = useOpen();
 
@@ -55,11 +55,19 @@ export default function SelectedExerciceBanner({
     );
   };
 
+  useEffect(() => {
+    if (submitted) {
+      swipeableRefs.current.forEach((ref) => ref?.close());
+    }
+  }, [submitted]);
+
   return (
     <SwipeableItem<unknown>
       key={item.id}
       item={item}
-      ref={swipeableRef}
+      ref={(ref) => {
+        if (ref) swipeableRefs.current[index] = ref;
+      }}
       renderUnderlayLeft={() => <UnderlayRight />}
       snapPointsLeft={[80]}
       activationThreshold={80}
