@@ -7,19 +7,20 @@ interface INewPlankHeaderProps {
   title: string;
   submitted: boolean;
   handleSubmit: () => void;
-  handleEditExercise: () => void;
+  handleEdit: () => void;
 }
 
 export default function NewPlankHeader({
   title,
   submitted,
   handleSubmit,
-  handleEditExercise,
+  handleEdit,
 }: INewPlankHeaderProps) {
   const router = useRouter();
   const height = Dimensions.get("window").height;
 
   const handleBack = () => router.push("/(drawer)");
+
   return (
     <View
       style={{
@@ -50,7 +51,7 @@ export default function NewPlankHeader({
         </View>
         {submitted ? (
           <Feather
-            onPress={handleEditExercise}
+            onPress={handleEdit}
             name="edit-2"
             size={20}
             color="#fbf9e6"

@@ -1,5 +1,5 @@
 import { IMAGES } from "@/data/defaultPlank";
-import type { IExercice, TExerciceType } from "@/types/plank";
+import type { IExercise, TExerciceType } from "@/types/plank";
 import cn from "classnames";
 import React, { Dispatch, SetStateAction } from "react";
 import {
@@ -11,23 +11,24 @@ import {
   View,
 } from "react-native";
 
-interface ISelectExerciceListProps {
-  setExercices: Dispatch<SetStateAction<IExercice[]>>;
+interface ISelectExerciseListProps {
+  setExercises: Dispatch<SetStateAction<IExercise[]>>;
 }
-export default function SelectExerciceList({
-  setExercices,
-}: ISelectExerciceListProps) {
+
+export default function SelectExerciseList({
+  setExercises,
+}: ISelectExerciseListProps) {
   const handleSelectExercice = (
-    rowExercice: [TExerciceType, ImageSourcePropType]
+    rowExercise: [TExerciceType, ImageSourcePropType]
   ) => {
-    const exercice: IExercice = {
+    const exercise: IExercise = {
       id: Date.now().toString(),
       time: "00:20",
-      type: rowExercice[0],
-      image: rowExercice[1],
+      type: rowExercise[0],
+      image: rowExercise[1],
     };
 
-    setExercices((prev) => [...prev, exercice]);
+    setExercises((prev) => [...prev, exercise]);
   };
 
   return (

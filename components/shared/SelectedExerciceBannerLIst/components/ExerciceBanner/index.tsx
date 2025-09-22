@@ -1,11 +1,11 @@
-import { IExercice } from "@/types/plank";
+import { IExercise } from "@/types/plank";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import cn from "classnames";
 import { Image, Pressable, Text, View } from "react-native";
 import BannerCount from "../BannerCount";
 
-interface IExerciceBannerProps {
-  item: IExercice;
+interface IExerciseBannerProps {
+  item: IExercise;
   isFirst: boolean;
   isRest: boolean;
   index: number;
@@ -18,7 +18,7 @@ export default function ExerciceBanner({
   isFirst,
   isRest,
   handleBannerOpen,
-}: IExerciceBannerProps) {
+}: IExerciseBannerProps) {
   return (
     <Pressable
       onPress={handleBannerOpen}

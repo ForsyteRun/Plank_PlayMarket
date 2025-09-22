@@ -1,25 +1,25 @@
 import AddNewPlankButton from "@/components/AddNewPlankButton";
-import type { IExercice } from "@/types/plank";
+import type { IExercise } from "@/types/plank";
 import { Dispatch, SetStateAction } from "react";
 import { FlatList } from "react-native";
-import SelectedExerciceBanner from "./components/SelectedExerciceBanner";
+import SelectedExerciceBanner from "./components/SelectedExerciseBanner";
 
-interface ISelectedExerciceBannerListProps {
-  exercices: IExercice[];
+interface ISelectedExerciseBannerListProps {
+  exercises: IExercise[];
   submitted: boolean;
-  setExercices: Dispatch<SetStateAction<IExercice[]>>;
+  setExercise: Dispatch<SetStateAction<IExercise[]>>;
   setModalVisible: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function SelectedExerciceBannerList({
-  exercices,
+export default function SelectedExerciseBannerList({
+  exercises,
   submitted,
-  setExercices,
+  setExercise,
   setModalVisible,
-}: ISelectedExerciceBannerListProps) {
+}: ISelectedExerciseBannerListProps) {
   return (
     <FlatList
-      data={exercices}
+      data={exercises}
       keyExtractor={(_, index) => index.toString()}
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{ paddingBottom: 24 }}
@@ -39,7 +39,7 @@ export default function SelectedExerciceBannerList({
             isFirst={isFirst}
             index={index}
             submitted={submitted}
-            setExercices={setExercices}
+            setExercise={setExercise}
           />
         );
       }}

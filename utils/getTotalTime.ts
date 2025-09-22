@@ -1,6 +1,6 @@
-import type { IExercice } from "@/types/plank";
+import type { IExercise } from "@/types/plank";
 
-export function getTotalTime(exercices: IExercice[]): string {
+export function getTotalTime(exercices: IExercise[]): string {
   const totalSeconds = exercices.reduce((sum, ex) => sum + Number(ex.time), 0);
 
   const minutes = Math.floor(totalSeconds / 60);

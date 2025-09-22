@@ -1,6 +1,6 @@
-import type { IExercice } from "@/types/plank";
+import type { IExercise } from "@/types/plank";
 
-export function sumExerciceTimes(exercices: IExercice[]): string {
+export function sumExerciceTimes(exercices: IExercise[]): string {
   let totalSeconds = 0;
 
   for (const ex of exercices) {

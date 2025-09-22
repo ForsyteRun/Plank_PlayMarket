@@ -1,10 +1,10 @@
 import Dots from "@/components/shared/Dots";
-import type { IExercice } from "@/types/plank";
+import type { IExercise } from "@/types/plank";
 import cn from "classnames";
 import { Image, View } from "react-native";
 
 interface IBannerImagesProps {
-  exercices: IExercice[];
+  exercices: IExercise[];
 }
 
 export default function BannerImages({ exercices }: IBannerImagesProps) {

@@ -1,10 +1,20 @@
 import ListTitle from "@/components/shared/ListTitle";
-import { View } from "react-native";
+import { useExercises } from "@/context/ExerciseContext";
+import { ScrollView, Text, View } from "react-native";
 
 export default function UserPlankList() {
+  const { exercises } = useExercises();
+
   return (
     <View>
       <ListTitle title="Пользовательские упражнения" />
+      <ScrollView>
+        {exercises.map((plank) => (
+          <View key={plank.id}>
+            <Text>{plank.type}</Text>
+          </View>
+        ))}
+      </ScrollView>
     </View>
   );
 }

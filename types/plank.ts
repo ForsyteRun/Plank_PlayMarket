@@ -2,10 +2,10 @@ import { ImageSourcePropType } from "react-native";
 
 export interface IPLank {
   title: string;
-  exercices: IExercice[];
+  exercices: IExercise[];
 }
 
-export interface IExercice {
+export interface IExercise {
   id: string;
   type: TExerciceType;
   time: string;

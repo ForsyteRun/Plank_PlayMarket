@@ -1,19 +1,19 @@
 import AddPlankModal from "@/components/AddPlankModal";
-import SelectedExerciceBannerList from "@/components/shared/SelectedExerciceBannerLIst";
-import type { IExercice } from "@/types/plank";
+import type { IExercise } from "@/types/plank";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { View } from "react-native";
+import SelectedExerciseBannerList from "../shared/SelectedExerciceBannerLIst";
 
 interface IPlankBannerListProps {
-  exercises: IExercice[];
+  exercises: IExercise[];
   submitted: boolean;
-  setExercices: Dispatch<SetStateAction<IExercice[]>>;
+  setExercise: Dispatch<SetStateAction<IExercise[]>>;
 }
 
 export default function PlankBannerList({
   exercises,
   submitted,
-  setExercices,
+  setExercise,
 }: IPlankBannerListProps) {
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -26,12 +26,12 @@ export default function PlankBannerList({
       <AddPlankModal
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
-        setExercices={setExercices}
+        setExercises={setExercise}
       />
-      <SelectedExerciceBannerList
-        exercices={exercises}
+      <SelectedExerciseBannerList
+        exercises={exercises}
         submitted={submitted}
-        setExercices={setExercices}
+        setExercise={setExercise}
         setModalVisible={setModalVisible}
       />
     </View>

@@ -1,4 +1,4 @@
-import type { IExercice } from "@/types/plank";
+import type { IExercise } from "@/types/plank";
 import { Dispatch, SetStateAction, useState } from "react";
 import { Modal, View } from "react-native";
 import ExericiceList from "./components/ExericiceList";
@@ -8,14 +8,14 @@ import Title from "./components/Title";
 interface ISetTimeModalProps {
   id: string;
   isOpen: boolean;
-  setExercices: Dispatch<SetStateAction<IExercice[]>>;
+  setExercise: Dispatch<SetStateAction<IExercise[]>>;
   handleBannerOpen: () => void;
 }
 
 export default function SetTimeModal({
   id,
   isOpen,
-  setExercices,
+  setExercise,
   handleBannerOpen,
 }: ISetTimeModalProps) {
   const [mins, setMins] = useState("00");
@@ -27,7 +27,7 @@ export default function SetTimeModal({
       return;
     }
 
-    setExercices((prev) =>
+    setExercise((prev) =>
       prev.map((item) =>
         item.id === id
           ? {

@@ -2,10 +2,8 @@ import NewPlankForm from "@/components/NewPlankForm";
 import NewPlankHeader from "@/components/NewPlankHeader";
 import PlankBannerList from "@/components/PlankBannerList";
 import SubmitInfo from "@/components/shared/SelectedExerciceBannerLIst/components/SubmitInfo";
-import { useEcerciseSetSubmit } from "@/hooks";
-import type { IExercice } from "@/types/plank";
+import { useExerciseSetManage } from "@/hooks";
 import { sumExerciceTimes } from "@/utils/sumExerciceTimes";
-import { useState } from "react";
 import {
   SafeAreaView,
   useSafeAreaInsets,
@@ -17,19 +15,21 @@ const EDIT = "Редактировать";
 export default function NewPlankScreen() {
   const { bottom } = useSafeAreaInsets();
 
-  const [exercises, setExercices] = useState<IExercice[]>([]);
-
   const {
     edit,
     title,
-    setTitle,
+    exercise,
     submitted,
     submittedTitle,
-    handleSubmit,
-    handleEditExercise,
-  } = useEcerciseSetSubmit(INIT_TITLE);
 
-  const totalExercicesTime = sumExerciceTimes(exercises);
+    setTitle,
+    setExercise,
+
+    handleEdit,
+    handleSubmit,
+  } = useExerciseSetManage(INIT_TITLE);
+
+  const totalExercicesTime = sumExerciceTimes(exercise);
   return (
     <SafeAreaView
       style={{ paddingBottom: bottom + 40 }}
@@ -40,7 +40,7 @@ export default function NewPlankScreen() {
         title={edit ? EDIT : submittedTitle || INIT_TITLE}
         submitted={submitted}
         handleSubmit={handleSubmit}
-        handleEditExercise={handleEditExercise}
+        handleEdit={handleEdit}
       />
       {submitted ? (
         <SubmitInfo totalExercicesTime={totalExercicesTime} />
@@ -54,9 +54,9 @@ export default function NewPlankScreen() {
       )}
 
       <PlankBannerList
-        exercises={exercises}
-        setExercices={setExercices}
+        exercises={exercise}
         submitted={submitted}
+        setExercise={setExercise}
       />
     </SafeAreaView>
   );

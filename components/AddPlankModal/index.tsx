@@ -1,18 +1,18 @@
-import type { IExercice } from "@/types/plank";
+import type { IExercise } from "@/types/plank";
 import { Dispatch, SetStateAction } from "react";
 import { Modal, Pressable, Text, View } from "react-native";
-import SelectExerciceList from "../SelectExerciceList";
+import SelectExerciceList from "../SelectExerciseList";
 
 interface IAddPlankModalProps {
   modalVisible: boolean;
   setModalVisible: Dispatch<SetStateAction<boolean>>;
-  setExercices: Dispatch<SetStateAction<IExercice[]>>;
+  setExercises: Dispatch<SetStateAction<IExercise[]>>;
 }
 
 export default function AddPlankModal({
   modalVisible,
   setModalVisible,
-  setExercices,
+  setExercises,
 }: IAddPlankModalProps) {
   return (
     <Modal
@@ -27,7 +27,7 @@ export default function AddPlankModal({
           <View className="bg-SECONDARY/50 w-full rounded-t-xl p-5">
             <Text className="text-md">Выберите упражнения</Text>
           </View>
-          <SelectExerciceList setExercices={setExercices} />
+          <SelectExerciceList setExercises={setExercises} />
           <View className="bg-SECONDARY/50 w-full p-5 rounded-b-xl">
             <Pressable
               className="px-4 py-2 rounded"
