@@ -8,7 +8,7 @@ interface IListTitlePops {
 export default function ListTitle({ title }: IListTitlePops) {
   return (
     <View className="w-full bg-SECONDARY">
-      <Text className="text-lg p-3">{title}</Text>
+      <Text className="text-lg px-3 py-1">{title}</Text>
     </View>
   );
 }
