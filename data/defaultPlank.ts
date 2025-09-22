@@ -15,21 +15,23 @@ export const IMAGES: Record<TExerciceType, ImageSourcePropType> = {
 
 export const defaultPlankList: IPLank[] = [
   {
+    id: "",
     title: "5 мин. комбо",
     exercices: [
-      { type: "Full plank" as TExerciceType, time: "60" },
-      { type: "Elbow plank" as TExerciceType, time: "30" },
-      { type: "Left leg plank" as TExerciceType, time: "30" },
-      { type: "Right leg plank" as TExerciceType, time: "30" },
-      { type: "Left side plank" as TExerciceType, time: "30" },
-      { type: "Right side plank" as TExerciceType, time: "30" },
-      { type: "Elbow plank" as TExerciceType, time: "30" },
-      { type: "Full plank" as TExerciceType, time: "60" },
+      { id: "", type: "Full plank" as TExerciceType, time: "00:60" },
+      { id: "", type: "Elbow plank" as TExerciceType, time: "00:30" },
+      { id: "", type: "Left leg plank" as TExerciceType, time: "00:30" },
+      { id: "", type: "Right leg plank" as TExerciceType, time: "00:30" },
+      { id: "", type: "Left side plank" as TExerciceType, time: "00:30" },
+      { id: "", type: "Right side plank" as TExerciceType, time: "00:30" },
+      { id: "", type: "Elbow plank" as TExerciceType, time: "00:30" },
+      { id: "", type: "Full plank" as TExerciceType, time: "00:60" },
     ],
   },
   {
+    id: "",
     title: "Обычная планка",
-    exercices: [{ type: "Full plank" as TExerciceType, time: "60" }],
+    exercices: [{ id: "", type: "Full plank" as TExerciceType, time: "00:60" }],
   },
 ].map((plank) => ({
   ...plank,
