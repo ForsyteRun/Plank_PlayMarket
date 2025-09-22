@@ -9,8 +9,8 @@ export default function UserPlankList() {
     <View>
       <ListTitle title="Пользовательские упражнения" />
       <ScrollView>
-        {exercises.map((plank) => (
-          <View key={plank.id}>
+        {exercises.map((plank, index) => (
+          <View key={index}>
             <Text>{plank.type}</Text>
           </View>
         ))}

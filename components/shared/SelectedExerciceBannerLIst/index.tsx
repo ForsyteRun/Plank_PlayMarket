@@ -1,25 +1,27 @@
 import AddNewPlankButton from "@/components/AddNewPlankButton";
-import type { IExercise } from "@/types/plank";
-import { Dispatch, SetStateAction } from "react";
+import { useExercises } from "@/context/ExerciseContext";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import { FlatList } from "react-native";
 import SelectedExerciceBanner from "./components/SelectedExerciseBanner";
 
 interface ISelectedExerciseBannerListProps {
-  exercises: IExercise[];
   submitted: boolean;
-  setExercise: Dispatch<SetStateAction<IExercise[]>>;
   setModalVisible: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function SelectedExerciseBannerList({
-  exercises,
   submitted,
-  setExercise,
   setModalVisible,
 }: ISelectedExerciseBannerListProps) {
+  const { localExercises } = useExercises();
+
+  useEffect(() => {
+    setModalVisible(false);
+  }, [localExercises.length]);
+
   return (
     <FlatList
-      data={exercises}
+      data={localExercises}
       keyExtractor={(_, index) => index.toString()}
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{ paddingBottom: 24 }}
@@ -39,7 +41,6 @@ export default function SelectedExerciseBannerList({
             isFirst={isFirst}
             index={index}
             submitted={submitted}
-            setExercise={setExercise}
           />
         );
       }}

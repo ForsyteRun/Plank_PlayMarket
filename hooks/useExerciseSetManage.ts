@@ -1,22 +1,28 @@
 import { useExercises } from "@/context/ExerciseContext";
-import type { IExercise } from "@/types/plank";
 import { useCallback, useState } from "react";
 
 export const useExerciseSetManage = (INIT_TITLE: string) => {
-  const { setExercises } = useExercises();
+  const { localExercises, setExercises } = useExercises();
 
   const [title, setTitle] = useState(INIT_TITLE);
   const [submittedTitle, setSubmittedTitle] = useState(INIT_TITLE);
   const [submitted, setSubmitted] = useState(false);
   const [edit, setEdit] = useState(false);
-  const [exercise, setExercise] = useState<IExercise[]>([]);
 
   const handleSubmit = useCallback(() => {
-    setExercises((prev) => [...prev, ...exercise]);
+    setExercises((prev) => {
+      const merged = [...prev, ...localExercises];
+      const unique = merged.filter(
+        (item, index, self) => index === self.findIndex((e) => e.id === item.id)
+      );
+      return unique;
+    });
+
     setSubmittedTitle(title.trim() || INIT_TITLE);
     setSubmitted(true);
+
     setEdit(false);
-  }, [exercise, title, setExercises]);
+  }, [localExercises, title, setExercises]);
 
   const handleEdit = useCallback(() => {
     setSubmitted(false);
@@ -27,13 +33,11 @@ export const useExerciseSetManage = (INIT_TITLE: string) => {
     // state
     edit,
     title,
-    exercise,
     submitted,
     submittedTitle,
-
+    localExercises,
     // setters
     setTitle,
-    setExercise,
 
     // handlers
     handleSubmit,

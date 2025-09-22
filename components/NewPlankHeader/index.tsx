@@ -1,5 +1,6 @@
 import { Dimensions, Text, View } from "react-native";
 
+import { useExercises } from "@/context/ExerciseContext";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Feather from "@expo/vector-icons/Feather";
 import { useRouter } from "expo-router";
@@ -17,9 +18,14 @@ export default function NewPlankHeader({
   handleEdit,
 }: INewPlankHeaderProps) {
   const router = useRouter();
+  const { setLocalExercises } = useExercises();
+
   const height = Dimensions.get("window").height;
 
-  const handleBack = () => router.push("/(drawer)");
+  const handleBack = () => {
+    setLocalExercises([]);
+    router.push("/(drawer)");
+  };
 
   return (
     <View

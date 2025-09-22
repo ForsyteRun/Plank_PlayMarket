@@ -1,8 +1,18 @@
 import type { IExercise } from "@/types/plank";
-import { FC, Dispatch, SetStateAction,  ReactNode, createContext, useContext, useState } from "react";
+import {
+  Dispatch,
+  FC,
+  ReactNode,
+  SetStateAction,
+  createContext,
+  useContext,
+  useState,
+} from "react";
 
 type ExerciseContextType = {
   exercises: IExercise[];
+  localExercises: IExercise[];
+  setLocalExercises: Dispatch<SetStateAction<IExercise[]>>;
   setExercises: Dispatch<SetStateAction<IExercise[]>>;
 };
 
@@ -10,9 +20,12 @@ const ExerciseContext = createContext<ExerciseContextType | null>(null);
 
 export const ExerciseProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [exercises, setExercises] = useState<IExercise[]>([]);
+  const [localExercises, setLocalExercises] = useState<IExercise[]>([]);
 
   return (
-    <ExerciseContext.Provider value={{ exercises, setExercises }}>
+    <ExerciseContext.Provider
+      value={{ exercises, localExercises, setExercises, setLocalExercises }}
+    >
       {children}
     </ExerciseContext.Provider>
   );

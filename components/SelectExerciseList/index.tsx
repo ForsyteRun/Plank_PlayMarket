@@ -1,7 +1,7 @@
+import { useExercises } from "@/context/ExerciseContext";
 import { IMAGES } from "@/data/defaultPlank";
 import type { IExercise, TExerciceType } from "@/types/plank";
 import cn from "classnames";
-import React, { Dispatch, SetStateAction } from "react";
 import {
   FlatList,
   Image,
@@ -11,24 +11,23 @@ import {
   View,
 } from "react-native";
 
-interface ISelectExerciseListProps {
-  setExercises: Dispatch<SetStateAction<IExercise[]>>;
-}
+export default function SelectExerciseList() {
+  const { setLocalExercises } = useExercises();
 
-export default function SelectExerciseList({
-  setExercises,
-}: ISelectExerciseListProps) {
+  const uniqueId = () =>
+    Math.random().toString(36).substring(2) + Date.now().toString(36);
+
   const handleSelectExercice = (
     rowExercise: [TExerciceType, ImageSourcePropType]
   ) => {
     const exercise: IExercise = {
-      id: Date.now().toString(),
+      id: uniqueId(),
       time: "00:20",
       type: rowExercise[0],
       image: rowExercise[1],
     };
 
-    setExercises((prev) => [...prev, exercise]);
+    setLocalExercises((prev) => [...prev, exercise]);
   };
 
   return (

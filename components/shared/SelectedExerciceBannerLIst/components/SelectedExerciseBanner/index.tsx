@@ -1,8 +1,9 @@
 import SetTimeModal from "@/components/SetTimeModal";
+import { useExercises } from "@/context/ExerciseContext";
 import { useOpen } from "@/hooks";
 import type { IExercise } from "@/types/plank";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { Dispatch, SetStateAction, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { TouchableOpacity, View } from "react-native";
 import SwipeableItem, {
   SwipeableItemImperativeRef,
@@ -16,7 +17,6 @@ interface ISelectedExerciseBannerProps {
   isRest: boolean;
   index: number;
   submitted: boolean;
-  setExercise: Dispatch<SetStateAction<IExercise[]>>;
 }
 
 export default function SelectedExerciseBanner({
@@ -25,17 +25,17 @@ export default function SelectedExerciseBanner({
   isFirst,
   index,
   submitted,
-  setExercise,
 }: ISelectedExerciseBannerProps) {
   const swipeableRefs = useRef<SwipeableItemImperativeRef[]>([]);
 
+  const { setLocalExercises } = useExercises();
   const { isOpen, handleOpen } = useOpen();
 
   const UnderlayRight = () => {
     const { item } = useSwipeableItemParams<IExercise>();
 
     const handleDelete = (id: string) => {
-      setExercise((exercises) => exercises.filter((e) => e.id !== id));
+      setLocalExercises((exercises) => exercises.filter((e) => e.id !== id));
     };
 
     return (
@@ -84,7 +84,6 @@ export default function SelectedExerciseBanner({
       />
       <SetTimeModal
         id={item.id}
-        setExercise={setExercise}
         isOpen={isOpen}
         handleBannerOpen={handleOpen}
       />
