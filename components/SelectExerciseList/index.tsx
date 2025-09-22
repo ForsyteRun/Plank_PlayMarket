@@ -1,6 +1,7 @@
 import { useExercises } from "@/context/ExerciseContext";
 import { IMAGES } from "@/data/defaultPlank";
 import type { IExercise, TExerciceType } from "@/types/plank";
+import { getUniqueId } from "@/utils/getUniqueId";
 import cn from "classnames";
 import {
   FlatList,
@@ -14,20 +15,20 @@ import {
 export default function SelectExerciseList() {
   const { setLocalExercises } = useExercises();
 
-  const uniqueId = () =>
-    Math.random().toString(36).substring(2) + Date.now().toString(36);
-
   const handleSelectExercice = (
     rowExercise: [TExerciceType, ImageSourcePropType]
   ) => {
     const exercise: IExercise = {
-      id: uniqueId(),
+      id: getUniqueId(),
       time: "00:20",
       type: rowExercise[0],
       image: rowExercise[1],
     };
 
-    setLocalExercises((prev) => [...prev, exercise]);
+    setLocalExercises((prev) => ({
+      ...prev,
+      exercices: [...prev.exercices, exercise],
+    }));
   };
 
   return (

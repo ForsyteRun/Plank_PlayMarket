@@ -35,7 +35,10 @@ export default function SelectedExerciseBanner({
     const { item } = useSwipeableItemParams<IExercise>();
 
     const handleDelete = (id: string) => {
-      setLocalExercises((exercises) => exercises.filter((e) => e.id !== id));
+      setLocalExercises((plank) => ({
+        ...plank,
+        exercices: plank.exercices.filter((e) => e.id !== id),
+      }));
     };
 
     return (

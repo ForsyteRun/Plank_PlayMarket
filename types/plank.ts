@@ -1,6 +1,7 @@
 import { ImageSourcePropType } from "react-native";
 
 export interface IPLank {
+  id: string;
   title: string;
   exercices: IExercise[];
 }

@@ -17,11 +17,11 @@ export default function SelectedExerciseBannerList({
 
   useEffect(() => {
     setModalVisible(false);
-  }, [localExercises.length]);
+  }, [localExercises.exercices.length]);
 
   return (
     <FlatList
-      data={localExercises}
+      data={localExercises.exercices}
       keyExtractor={(_, index) => index.toString()}
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{ paddingBottom: 24 }}

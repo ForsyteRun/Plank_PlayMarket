@@ -1,28 +1,38 @@
 import { useExercises } from "@/context/ExerciseContext";
+import type { IPLank } from "@/types/plank";
+import { getUniqueId } from "@/utils/getUniqueId";
 import { useCallback, useState } from "react";
 
 export const useExerciseSetManage = (INIT_TITLE: string) => {
-  const { localExercises, setExercises } = useExercises();
+  const { localExercises, setLocalExercises, setExercises } = useExercises();
 
   const [title, setTitle] = useState(INIT_TITLE);
   const [submittedTitle, setSubmittedTitle] = useState(INIT_TITLE);
   const [submitted, setSubmitted] = useState(false);
   const [edit, setEdit] = useState(false);
 
-  const handleSubmit = useCallback(() => {
+  const handleSubmit = () => {
     setExercises((prev) => {
-      const merged = [...prev, ...localExercises];
-      const unique = merged.filter(
-        (item, index, self) => index === self.findIndex((e) => e.id === item.id)
-      );
-      return unique;
+      if (!localExercises.exercices.length) return prev;
+
+      const newPlank: IPLank = {
+        id: getUniqueId(),
+        title,
+        exercices: [...localExercises.exercices],
+      };
+
+      const merged = [...prev, newPlank];
+
+      return merged;
     });
+
+    setLocalExercises({ id: "", title: "", exercices: [] });
 
     setSubmittedTitle(title.trim() || INIT_TITLE);
     setSubmitted(true);
 
     setEdit(false);
-  }, [localExercises, title, setExercises]);
+  };
 
   const handleEdit = useCallback(() => {
     setSubmitted(false);
@@ -38,7 +48,7 @@ export const useExerciseSetManage = (INIT_TITLE: string) => {
     localExercises,
     // setters
     setTitle,
-
+    setSubmitted,
     // handlers
     handleSubmit,
     handleEdit,

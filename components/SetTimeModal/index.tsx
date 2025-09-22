@@ -27,16 +27,17 @@ export default function SetTimeModal({
       return;
     }
 
-    setLocalExercises((prev) =>
-      prev.map((item) =>
+    setLocalExercises((prev) => ({
+      ...prev,
+      exercices: prev.exercices.map((item) =>
         item.id === id
           ? {
               ...item,
               time: `${String(mins).padStart(2, "0")}:${String(sec).padStart(2, "0")}`,
             }
           : item
-      )
-    );
+      ),
+    }));
 
     handleBannerOpen();
   };

@@ -1,4 +1,4 @@
-import type { IExercise } from "@/types/plank";
+import type { IPLank } from "@/types/plank";
 import {
   Dispatch,
   FC,
@@ -10,17 +10,21 @@ import {
 } from "react";
 
 type ExerciseContextType = {
-  exercises: IExercise[];
-  localExercises: IExercise[];
-  setLocalExercises: Dispatch<SetStateAction<IExercise[]>>;
-  setExercises: Dispatch<SetStateAction<IExercise[]>>;
+  exercises: IPLank[];
+  localExercises: IPLank;
+  setLocalExercises: Dispatch<SetStateAction<IPLank>>;
+  setExercises: Dispatch<SetStateAction<IPLank[]>>;
 };
 
 const ExerciseContext = createContext<ExerciseContextType | null>(null);
 
 export const ExerciseProvider: FC<{ children: ReactNode }> = ({ children }) => {
-  const [exercises, setExercises] = useState<IExercise[]>([]);
-  const [localExercises, setLocalExercises] = useState<IExercise[]>([]);
+  const [exercises, setExercises] = useState<IPLank[]>([]);
+  const [localExercises, setLocalExercises] = useState<IPLank>({
+    id: "",
+    title: "",
+    exercices: [],
+  });
 
   return (
     <ExerciseContext.Provider
@@ -33,6 +37,7 @@ export const ExerciseProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
 export const useExercises = () => {
   const ctx = useContext(ExerciseContext);
+
   if (!ctx)
     throw new Error("useExercises must be used within ExerciseProvider");
   return ctx;

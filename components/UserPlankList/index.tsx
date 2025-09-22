@@ -1,20 +1,24 @@
 import ListTitle from "@/components/shared/ListTitle";
 import { useExercises } from "@/context/ExerciseContext";
-import { ScrollView, Text, View } from "react-native";
+import { View } from "react-native";
+import PlankBanner from "../shared/PlankBanner";
 
 export default function UserPlankList() {
   const { exercises } = useExercises();
 
   return (
-    <View>
+    <View className="flex-1">
       <ListTitle title="Пользовательские упражнения" />
-      <ScrollView>
-        {exercises.map((plank, index) => (
-          <View key={index}>
-            <Text>{plank.type}</Text>
-          </View>
+      <View className="flex justify-center gap-8">
+        {exercises.map((plank) => (
+          <PlankBanner
+            id={plank.id}
+            key={plank.id}
+            title={plank.title}
+            exercices={plank.exercices}
+          />
         ))}
-      </ScrollView>
+      </View>
     </View>
   );
 }

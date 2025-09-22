@@ -23,12 +23,13 @@ export default function NewPlankScreen() {
     localExercises,
 
     setTitle,
+    setSubmitted,
 
     handleEdit,
     handleSubmit,
   } = useExerciseSetManage(INIT_TITLE);
 
-  const totalExercicesTime = sumExerciceTimes(localExercises);
+  const totalExercicesTime = sumExerciceTimes(localExercises.exercices);
   return (
     <SafeAreaView
       style={{ paddingBottom: bottom + 40 }}
@@ -39,6 +40,7 @@ export default function NewPlankScreen() {
         title={edit ? EDIT : submittedTitle || INIT_TITLE}
         submitted={submitted}
         handleSubmit={handleSubmit}
+        setSubmitted={setSubmitted}
         handleEdit={handleEdit}
       />
       {submitted ? (

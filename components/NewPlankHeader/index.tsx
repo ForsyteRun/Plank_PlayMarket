@@ -1,15 +1,16 @@
 import { Dimensions, Text, View } from "react-native";
 
-import { useExercises } from "@/context/ExerciseContext";
 import { useOpen } from "@/hooks";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Feather from "@expo/vector-icons/Feather";
 import { useRouter } from "expo-router";
+import { Dispatch, SetStateAction } from "react";
 import AttentionModal from "../shared/AttentionModal";
 interface INewPlankHeaderProps {
   title: string;
   submitted: boolean;
   handleSubmit: () => void;
+  setSubmitted: Dispatch<SetStateAction<boolean>>;
   handleEdit: () => void;
 }
 
@@ -17,18 +18,19 @@ export default function NewPlankHeader({
   title,
   submitted,
   handleSubmit,
+  setSubmitted,
   handleEdit,
 }: INewPlankHeaderProps) {
   const router = useRouter();
 
   const { isOpen, handleOpen } = useOpen();
-  const { setLocalExercises } = useExercises();
 
   const height = Dimensions.get("window").height;
 
   const handleBack = () => {
     if (submitted) {
-      setLocalExercises([]);
+      handleSubmit();
+
       router.push("/(drawer)");
     } else {
       handleOpen();
@@ -73,7 +75,7 @@ export default function NewPlankHeader({
             />
           ) : (
             <AntDesign
-              onPress={handleSubmit}
+              onPress={() => setSubmitted(true)}
               name="check"
               size={20}
               color="#fbf9e6"
@@ -81,11 +83,7 @@ export default function NewPlankHeader({
           )}
         </View>
       </View>
-      <AttentionModal
-        isOpen={isOpen}
-        handleOpen={handleOpen}
-        handleSubmit={handleSubmit}
-      />
+      <AttentionModal isOpen={isOpen} handleOpen={handleOpen} />
     </View>
   );
 }
