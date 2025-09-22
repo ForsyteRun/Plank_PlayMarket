@@ -1,4 +1,3 @@
-import { useExercises } from "@/context/ExerciseContext";
 import Entypo from "@expo/vector-icons/Entypo";
 import { useRouter } from "expo-router";
 import { Modal, Text, View } from "react-native";
@@ -6,23 +5,16 @@ import ModalButton from "./components/ModalButton";
 interface IAttentionModalProps {
   isOpen: boolean;
   handleOpen: () => void;
-  handleSubmit: () => void;
 }
 
 export default function AttentionModal({
   isOpen,
   handleOpen,
-  handleSubmit,
 }: IAttentionModalProps) {
   const router = useRouter();
 
-  const { setLocalExercises } = useExercises();
-
   const handleContinue = () => {
     handleOpen();
-
-    setLocalExercises([]);
-    handleSubmit();
 
     router.push("/(drawer)");
   };
