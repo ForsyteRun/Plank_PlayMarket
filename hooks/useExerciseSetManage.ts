@@ -6,9 +6,12 @@ import { useCallback, useState } from "react";
 export const useExerciseSetManage = (INIT_TITLE: string) => {
   const { localExercises, setLocalExercises, setExercises } = useExercises();
 
-  const [title, setTitle] = useState(INIT_TITLE);
-  const [submittedTitle, setSubmittedTitle] = useState(INIT_TITLE);
-  const [submitted, setSubmitted] = useState(false);
+  const [title, setTitle] = useState(localExercises.title ?? INIT_TITLE);
+  const [submittedTitle, setSubmittedTitle] = useState(
+    localExercises.title ?? INIT_TITLE
+  );
+
+  const [submitted, setSubmitted] = useState(!!localExercises.title ?? false);
   const [edit, setEdit] = useState(false);
 
   const handleSubmit = () => {
@@ -23,6 +26,11 @@ export const useExerciseSetManage = (INIT_TITLE: string) => {
 
       const merged = [...prev, newPlank];
 
+      // const unique = merged.filter(
+      //   (item, index, self) =>
+      //     index === self.findIndex((e) => e.title === item.title)
+      // );
+
       return merged;
     });
 
@@ -34,10 +42,22 @@ export const useExerciseSetManage = (INIT_TITLE: string) => {
     setEdit(false);
   };
 
-  const handleEdit = useCallback(() => {
-    setSubmitted(false);
-    setEdit(true);
-  }, []);
+  const handleEdit = useCallback(
+    (value: "active" | "inactive") => {
+      setSubmittedTitle(title.trim());
+
+      if (value === "active") {
+        setSubmitted(false);
+
+        setEdit(true);
+      } else if (value === "inactive") {
+        setSubmitted(true);
+
+        setEdit(false);
+      }
+    },
+    [title, edit, submitted]
+  );
 
   return {
     // state
@@ -46,9 +66,10 @@ export const useExerciseSetManage = (INIT_TITLE: string) => {
     submitted,
     submittedTitle,
     localExercises,
+
     // setters
     setTitle,
-    setSubmitted,
+
     // handlers
     handleSubmit,
     handleEdit,
