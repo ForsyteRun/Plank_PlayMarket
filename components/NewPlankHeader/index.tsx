@@ -4,21 +4,18 @@ import { useOpen } from "@/hooks";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Feather from "@expo/vector-icons/Feather";
 import { useRouter } from "expo-router";
-import { Dispatch, SetStateAction } from "react";
 import AttentionModal from "../shared/AttentionModal";
 interface INewPlankHeaderProps {
   title: string;
   submitted: boolean;
   handleSubmit: () => void;
-  setSubmitted: Dispatch<SetStateAction<boolean>>;
-  handleEdit: () => void;
+  handleEdit: (value: "active" | "inactive") => void;
 }
 
 export default function NewPlankHeader({
   title,
   submitted,
   handleSubmit,
-  setSubmitted,
   handleEdit,
 }: INewPlankHeaderProps) {
   const router = useRouter();
@@ -68,14 +65,14 @@ export default function NewPlankHeader({
           </View>
           {submitted ? (
             <Feather
-              onPress={handleEdit}
+              onPress={() => handleEdit("active")}
               name="edit-2"
               size={20}
               color="#fbf9e6"
             />
           ) : (
             <AntDesign
-              onPress={() => setSubmitted(true)}
+              onPress={() => handleEdit("inactive")}
               name="check"
               size={20}
               color="#fbf9e6"

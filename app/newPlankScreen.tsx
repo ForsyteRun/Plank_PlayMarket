@@ -2,7 +2,7 @@ import NewPlankForm from "@/components/NewPlankForm";
 import NewPlankHeader from "@/components/NewPlankHeader";
 import PlankBannerList from "@/components/PlankBannerList";
 import SubmitInfo from "@/components/shared/SelectedExerciceBannerLIst/components/SubmitInfo";
-import { useExerciseSetManage } from "@/hooks";
+import { useUserPlankManage } from "@/hooks";
 import { sumExerciceTimes } from "@/utils/sumExerciceTimes";
 import {
   SafeAreaView,
@@ -23,13 +23,13 @@ export default function NewPlankScreen() {
     localExercises,
 
     setTitle,
-    setSubmitted,
 
     handleEdit,
     handleSubmit,
-  } = useExerciseSetManage(INIT_TITLE);
+  } = useUserPlankManage(INIT_TITLE);
 
   const totalExercicesTime = sumExerciceTimes(localExercises.exercices);
+
   return (
     <SafeAreaView
       style={{ paddingBottom: bottom + 40 }}
@@ -40,7 +40,6 @@ export default function NewPlankScreen() {
         title={edit ? EDIT : submittedTitle || INIT_TITLE}
         submitted={submitted}
         handleSubmit={handleSubmit}
-        setSubmitted={setSubmitted}
         handleEdit={handleEdit}
       />
       {submitted ? (
@@ -48,9 +47,9 @@ export default function NewPlankScreen() {
       ) : (
         <NewPlankForm
           edit={edit}
-          title={title}
-          totalExercicesTime={totalExercicesTime}
+          title={title || INIT_TITLE}
           setTitle={setTitle}
+          totalExercicesTime={totalExercicesTime}
         />
       )}
 
