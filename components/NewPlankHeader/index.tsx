@@ -36,6 +36,12 @@ export default function NewPlankHeader({
     }
   };
 
+  const handleYes = () => {
+    handleOpen();
+
+    router.push("/(drawer)");
+  };
+
   return (
     <View>
       <View
@@ -84,6 +90,7 @@ export default function NewPlankHeader({
         yesBtn="Да"
         isOpen={isOpen}
         handleOpen={handleOpen}
+        handleYes={handleYes}
       />
     </View>
   );

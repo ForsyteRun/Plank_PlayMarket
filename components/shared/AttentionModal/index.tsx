@@ -1,5 +1,4 @@
 import Entypo from "@expo/vector-icons/Entypo";
-import { useRouter } from "expo-router";
 import { Text, View } from "react-native";
 import BaseModal from "../BaseModal";
 import ModalButton from "./components/ModalButton";
@@ -10,6 +9,7 @@ interface IAttentionModalProps {
   yesBtn: string;
   noBtn: string;
   handleOpen: () => void;
+  handleYes: () => void;
 }
 
 export default function AttentionModal({
@@ -19,15 +19,8 @@ export default function AttentionModal({
   yesBtn,
   noBtn,
   handleOpen,
+  handleYes,
 }: IAttentionModalProps) {
-  const router = useRouter();
-
-  const handleContinue = () => {
-    handleOpen();
-
-    router.push("/(drawer)");
-  };
-
   return (
     <BaseModal
       animationType="fade"
@@ -45,7 +38,7 @@ export default function AttentionModal({
           </View>
           <View className="flex-row self-end gap-5 mt-8 mb-6">
             <ModalButton text={noBtn} callback={handleOpen} />
-            <ModalButton text={yesBtn} callback={handleContinue} />
+            <ModalButton text={yesBtn} callback={handleYes} />
           </View>
         </View>
       </View>
