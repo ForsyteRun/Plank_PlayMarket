@@ -1,9 +1,8 @@
 import PlankBanner from "@/components/shared/PlankBanner";
 import { SwipeableComponent } from "@/components/shared/SwipeableComponent";
 import UnderlaySwapPlankBanner from "@/components/shared/UnderlaySwapPlankBanner";
-import { useExercises } from "@/context/ExerciseContext";
+import { useManageUserPlankFomList } from "@/hooks";
 import type { IPLank } from "@/types/plank";
-import { useRouter } from "expo-router";
 import { Pressable } from "react-native";
 
 interface IUserPlankProps {
@@ -11,23 +10,7 @@ interface IUserPlankProps {
 }
 
 export default function UserPlank({ plank }: IUserPlankProps) {
-  const router = useRouter();
-
-  const { setExercises, setLocalExercises } = useExercises();
-
-  const handleDelete = (id: string) => {
-    setExercises((prev) => prev.filter((e) => e.id !== id));
-  };
-
-  const handlePlankPress = (plank: IPLank) => {
-    setLocalExercises({
-      id: plank.id,
-      title: plank.title,
-      exercices: plank.exercices,
-    });
-
-    router.push("/newPlankScreen");
-  };
+  const { handleDelete, handlePlankPress } = useManageUserPlankFomList();
 
   return (
     <SwipeableComponent<IPLank>
