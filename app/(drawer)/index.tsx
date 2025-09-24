@@ -8,7 +8,7 @@ export default function Index() {
   const { bottom } = useSafeAreaInsets();
 
   return (
-    <View className="flex-1 bg-BG_WHITE">
+    <View className="flex-1 bg-[#FFF]">
       <View className="flex-1 pb-10" style={{ marginBottom: bottom }}>
         <DefaultPlankList />
         <UserPlankList />

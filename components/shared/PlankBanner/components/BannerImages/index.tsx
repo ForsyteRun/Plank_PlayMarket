@@ -23,7 +23,13 @@ export default function BannerImages({ exercices }: IBannerImagesProps) {
             source={exercice.image}
             style={{
               width: isMultiple ? 60 : 120,
-              height: isMultiple ? 30 : 70,
+              height: isMultiple
+                ? exercice.type === "rest"
+                  ? 25
+                  : 40
+                : exercice.type === "rest"
+                  ? 40
+                  : 70,
             }}
             resizeMode="contain"
             key={index}
