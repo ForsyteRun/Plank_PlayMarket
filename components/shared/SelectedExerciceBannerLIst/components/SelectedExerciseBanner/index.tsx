@@ -1,10 +1,8 @@
 import SetTimeModal from "@/components/SetTimeModal";
 import { SwipeableComponent } from "@/components/shared/SwipeableComponent";
 import UnderlaySwapPlankBanner from "@/components/shared/UnderlaySwapPlankBanner";
-import { useExercises } from "@/context/ExerciseContext";
-import { useOpen } from "@/hooks";
+import { useManageSelectedExerciseBanner, useOpen } from "@/hooks";
 import type { IExercise } from "@/types/plank";
-import { useEffect, useRef } from "react";
 import { SwipeableItemImperativeRef } from "react-native-swipeable-item";
 import ExerciceBanner from "../ExerciceBanner";
 
@@ -23,23 +21,12 @@ export default function SelectedExerciseBanner({
   index,
   submitted,
 }: ISelectedExerciseBannerProps) {
-  const swipeableRefs = useRef<SwipeableItemImperativeRef[]>([]);
-
-  const { setLocalExercises } = useExercises();
   const { isOpen, handleOpen } = useOpen();
 
-  useEffect(() => {
-    if (submitted) {
-      swipeableRefs.current.forEach((ref) => ref?.close());
-    }
-  }, [submitted]);
-
-  const handleDelete = () => {
-    setLocalExercises((plank) => ({
-      ...plank,
-      exercices: plank.exercices.filter((e) => e.id !== item.id),
-    }));
-  };
+  const { swipeableRefs, handleDelete } = useManageSelectedExerciseBanner(
+    item.id,
+    submitted
+  );
 
   return (
     <SwipeableComponent<IExercise>
