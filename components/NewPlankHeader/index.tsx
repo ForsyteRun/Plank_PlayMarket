@@ -4,6 +4,7 @@ import { useOpen } from "@/hooks";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Feather from "@expo/vector-icons/Feather";
 import { useRouter } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import AttentionModal from "../shared/AttentionModal";
 interface INewPlankHeaderProps {
   title: string;
@@ -19,6 +20,7 @@ export default function NewPlankHeader({
   handleEdit,
 }: INewPlankHeaderProps) {
   const router = useRouter();
+  const { top } = useSafeAreaInsets();
 
   const { isOpen, handleOpen } = useOpen();
 
@@ -37,14 +39,8 @@ export default function NewPlankHeader({
   return (
     <View>
       <View
-        style={{
-          height: height * 0.12,
-          backgroundColor: "#3BA79B",
-          display: "flex",
-          alignItems: "flex-start",
-          justifyContent: "flex-end",
-          padding: 18,
-        }}
+        style={{ minHeight: height * 0.12, paddingTop: top }}
+        className="w-full flex-row items-end justify-between bg-PRIMARY pr-4 py-4"
       >
         <View className="w-full flex-row items-center justify-between ">
           <View className="flex-row items-center justify-center gap-6">
@@ -58,6 +54,7 @@ export default function NewPlankHeader({
               style={{
                 color: "#fbf9e6",
                 fontSize: 22,
+                width: "80%",
               }}
             >
               {title}

@@ -13,6 +13,7 @@ export default function Index() {
         <DefaultPlankList />
         <UserPlankList />
       </View>
+
       <NewPlankButton />
     </View>
   );
