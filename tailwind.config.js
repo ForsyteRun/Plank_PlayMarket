@@ -12,6 +12,7 @@ module.exports = {
         LIGHT_GREY: "#e3e8e8",
         ORANGE: "#FFA726",
         LIGHT_GREEN: "#65a198",
+        RED: "#f44336",
       }
     },
   },

@@ -1,14 +1,11 @@
 import SetTimeModal from "@/components/SetTimeModal";
+import { SwipeableComponent } from "@/components/shared/SwipeableComponent";
+import UnderlaySwapPlankBanner from "@/components/shared/UnderlaySwapPlankBanner";
 import { useExercises } from "@/context/ExerciseContext";
 import { useOpen } from "@/hooks";
 import type { IExercise } from "@/types/plank";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useEffect, useRef } from "react";
-import { TouchableOpacity, View } from "react-native";
-import SwipeableItem, {
-  SwipeableItemImperativeRef,
-  useSwipeableItemParams,
-} from "react-native-swipeable-item";
+import { SwipeableItemImperativeRef } from "react-native-swipeable-item";
 import ExerciceBanner from "../ExerciceBanner";
 
 interface ISelectedExerciseBannerProps {
@@ -31,52 +28,33 @@ export default function SelectedExerciseBanner({
   const { setLocalExercises } = useExercises();
   const { isOpen, handleOpen } = useOpen();
 
-  const UnderlayRight = () => {
-    const { item } = useSwipeableItemParams<IExercise>();
-
-    const handleDelete = (id: string) => {
-      setLocalExercises((plank) => ({
-        ...plank,
-        exercices: plank.exercices.filter((e) => e.id !== id),
-      }));
-    };
-
-    return (
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: "red",
-          justifyContent: "center",
-          alignItems: "flex-end",
-          paddingRight: 20,
-        }}
-      >
-        <TouchableOpacity onPress={() => handleDelete(item.id)}>
-          <MaterialIcons name="delete" size={34} color="white" />
-        </TouchableOpacity>
-      </View>
-    );
-  };
-
   useEffect(() => {
     if (submitted) {
       swipeableRefs.current.forEach((ref) => ref?.close());
     }
   }, [submitted]);
 
+  const handleDelete = () => {
+    setLocalExercises((plank) => ({
+      ...plank,
+      exercices: plank.exercices.filter((e) => e.id !== item.id),
+    }));
+  };
+
   return (
-    <SwipeableItem<unknown>
+    <SwipeableComponent<IExercise>
       key={item.id}
       item={item}
-      ref={(ref) => {
+      ref={(ref: SwipeableItemImperativeRef | null) => {
         if (ref) swipeableRefs.current[index] = ref;
       }}
-      renderUnderlayLeft={() => <UnderlayRight />}
+      renderUnderlayLeft={() => (
+        <UnderlaySwapPlankBanner<IExercise> handleDelete={handleDelete} />
+      )}
       snapPointsLeft={[80]}
       activationThreshold={80}
       overSwipe={0}
       swipeEnabled={!submitted}
-      onChange={() => {}}
     >
       <ExerciceBanner
         item={item}
@@ -90,6 +68,6 @@ export default function SelectedExerciseBanner({
         isOpen={isOpen}
         handleBannerOpen={handleOpen}
       />
-    </SwipeableItem>
+    </SwipeableComponent>
   );
 }
