@@ -77,7 +77,14 @@ export default function NewPlankHeader({
           )}
         </View>
       </View>
-      <AttentionModal isOpen={isOpen} handleOpen={handleOpen} />
+      <AttentionModal
+        title="Отменить?"
+        text="Вы уверены что хотите отменить изменения?"
+        noBtn="Нет"
+        yesBtn="Да"
+        isOpen={isOpen}
+        handleOpen={handleOpen}
+      />
     </View>
   );
 }

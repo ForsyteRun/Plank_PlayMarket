@@ -1,6 +1,7 @@
 import { useExercises } from "@/context/ExerciseContext";
 import { useState } from "react";
-import { Modal, View } from "react-native";
+import { View } from "react-native";
+import BaseModal from "../shared/BaseModal";
 import ExericiceList from "./components/ExericiceList";
 import Footer from "./components/Footer";
 import Title from "./components/Title";
@@ -43,7 +44,7 @@ export default function SetTimeModal({
   };
 
   return (
-    <Modal
+    <BaseModal
       transparent={true}
       visible={isOpen}
       statusBarTranslucent={true}
@@ -56,6 +57,6 @@ export default function SetTimeModal({
           <Footer handleTime={handleTime} handleBannerOpen={handleBannerOpen} />
         </View>
       </View>
-    </Modal>
+    </BaseModal>
   );
 }

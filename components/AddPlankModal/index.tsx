@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
-import { Modal, Pressable, Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import SelectExerciceList from "../SelectExerciseList";
+import BaseModal from "../shared/BaseModal";
 
 interface IAddPlankModalProps {
   modalVisible: boolean;
@@ -12,7 +13,7 @@ export default function AddPlankModal({
   setModalVisible,
 }: IAddPlankModalProps) {
   return (
-    <Modal
+    <BaseModal
       animationType="fade"
       transparent={true}
       visible={modalVisible}
@@ -37,6 +38,6 @@ export default function AddPlankModal({
           </View>
         </View>
       </View>
-    </Modal>
+    </BaseModal>
   );
 }
