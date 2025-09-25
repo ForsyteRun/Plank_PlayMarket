@@ -15,7 +15,7 @@ export const IMAGES: Record<TExerciceType, ImageSourcePropType> = {
 
 export const defaultPlankList: IPLank[] = [
   {
-    id: "",
+    id: "1",
     title: "5 мин. комбо",
     exercices: [
       { id: "", type: "Full plank" as TExerciceType, time: "00:60" },
@@ -29,7 +29,7 @@ export const defaultPlankList: IPLank[] = [
     ],
   },
   {
-    id: "",
+    id: "2",
     title: "Обычная планка",
     exercices: [{ id: "", type: "Full plank" as TExerciceType, time: "00:60" }],
   },

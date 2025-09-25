@@ -1,23 +1,25 @@
 import ListTitle from "@/components/shared/ListTitle";
-import PlankBanner from "@/components/shared/PlankBanner";
 import { defaultPlankList } from "@/data/defaultPlank";
 import React from "react";
-import { ScrollView, View } from "react-native";
+import { FlatList, View } from "react-native";
+import UserPlank from "../UserPlankList/component/UserPlank";
 
 export default function DefaultPlankList() {
   return (
     <View>
       <ListTitle title="Упражнения по умолчанию" />
-      <ScrollView>
-        {defaultPlankList.map((plank, index) => (
-          <PlankBanner
-            id={plank.id}
-            key={index}
-            title={plank.title}
-            exercices={plank.exercices}
+      <FlatList
+        data={defaultPlankList}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <UserPlank
+            plank={item}
+            key={item.id}
+            swipeEnabled={false}
+            editEnabled={false}
           />
-        ))}
-      </ScrollView>
+        )}
+      />
     </View>
   );
 }
