@@ -19,9 +19,6 @@ export const useUserPlankManage = (INIT_TITLE: string) => {
   } = usePlankFormState(INIT_TITLE, localExercises);
 
   const handleSubmit = useCallback(() => {
-    console.log("====================================");
-    console.log("handleSubmit");
-    console.log("====================================");
     setExercises((prev) =>
       createOrUpdatePlank(prev, localExercises, title, INIT_TITLE)
     );
