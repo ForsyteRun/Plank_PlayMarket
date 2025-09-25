@@ -1,4 +1,5 @@
 import { useExercises } from "@/context/ExerciseContext";
+import { INIT_PLANK } from "@/data/defaultPlank";
 import { createOrUpdatePlank } from "@/utils";
 import { useCallback } from "react";
 import { usePlankFormState } from "./usePlankFormState ";
@@ -18,11 +19,14 @@ export const useUserPlankManage = (INIT_TITLE: string) => {
   } = usePlankFormState(INIT_TITLE, localExercises);
 
   const handleSubmit = useCallback(() => {
+    console.log("====================================");
+    console.log("handleSubmit");
+    console.log("====================================");
     setExercises((prev) =>
       createOrUpdatePlank(prev, localExercises, title, INIT_TITLE)
     );
 
-    setLocalExercises({ id: "", title: "", exercices: [] });
+    setLocalExercises(INIT_PLANK);
 
     setSubmittedTitle(title.trim() || INIT_TITLE);
     setSubmitted(true);

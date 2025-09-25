@@ -1,3 +1,5 @@
+import { useExercises } from "@/context/ExerciseContext";
+import { INIT_PLANK } from "@/data/defaultPlank";
 import { useRouter } from "expo-router";
 import { Pressable, Text } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -6,7 +8,11 @@ export default function NewPlankButton() {
   const { bottom, right } = useSafeAreaInsets();
   const router = useRouter();
 
+  const { setLocalExercises } = useExercises();
+
   const handleNewPlankScreen = () => {
+    setLocalExercises(INIT_PLANK);
+
     router.push("/newPlankScreen");
   };
 

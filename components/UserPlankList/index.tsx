@@ -13,7 +13,9 @@ export default function UserPlankList() {
       <FlatList
         data={exercises}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <UserPlank plank={item} key={item.id} />}
+        renderItem={({ item }) => (
+          <UserPlank plank={item} key={item.id} editEnabled={true} />
+        )}
       />
     </View>
   );

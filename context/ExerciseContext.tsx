@@ -1,3 +1,4 @@
+import { INIT_PLANK } from "@/data/defaultPlank";
 import type { IPLank } from "@/types/plank";
 import {
   Dispatch,
@@ -20,11 +21,7 @@ const ExerciseContext = createContext<ExerciseContextType | null>(null);
 
 export const ExerciseProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [exercises, setExercises] = useState<IPLank[]>([]);
-  const [localExercises, setLocalExercises] = useState<IPLank>({
-    id: "",
-    title: "",
-    exercices: [],
-  });
+  const [localExercises, setLocalExercises] = useState<IPLank>(INIT_PLANK);
 
   return (
     <ExerciseContext.Provider

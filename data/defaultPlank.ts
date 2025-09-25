@@ -40,3 +40,10 @@ export const defaultPlankList: IPLank[] = [
     image: IMAGES[exercice.type as TExerciceType],
   })),
 }));
+
+export const INIT_PLANK = {
+  id: "",
+  title: "",
+  exercices: [],
+  editEnabled: true,
+};

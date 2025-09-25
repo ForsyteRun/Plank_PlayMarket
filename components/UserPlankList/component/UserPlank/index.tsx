@@ -4,13 +4,20 @@ import { SwipeableComponent } from "@/components/shared/SwipeableComponent";
 import UnderlaySwapPlankBanner from "@/components/shared/UnderlaySwapPlankBanner";
 import { useManageUserPlankFomList, useOpen } from "@/hooks";
 import type { IPLank } from "@/types/plank";
+import { SwipeableComponentProps } from "@/types/swipeableComponentProps";
 import { Pressable } from "react-native";
 
-interface IUserPlankProps {
+interface IUserPlankProps
+  extends Pick<SwipeableComponentProps<IPLank>, "swipeEnabled"> {
   plank: IPLank;
+  editEnabled: boolean;
 }
 
-export default function UserPlank({ plank }: IUserPlankProps) {
+export default function UserPlank({
+  plank,
+  editEnabled,
+  ...rest
+}: IUserPlankProps) {
   const { handleDelete, handlePlankPress } = useManageUserPlankFomList();
   const { isOpen, handleOpen } = useOpen();
 
@@ -36,9 +43,10 @@ export default function UserPlank({ plank }: IUserPlankProps) {
         snapPointsLeft={[80]}
         activationThreshold={80}
         overSwipe={0}
+        {...rest}
       >
         <Pressable
-          onPress={() => handlePlankPress(plank)}
+          onPress={() => handlePlankPress(plank, editEnabled)}
           style={{ minHeight: 60 }}
         >
           <PlankBanner

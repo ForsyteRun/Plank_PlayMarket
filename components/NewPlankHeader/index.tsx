@@ -9,6 +9,7 @@ import AttentionModal from "../shared/AttentionModal";
 interface INewPlankHeaderProps {
   title: string;
   submitted: boolean;
+  editEnabled?: boolean;
   handleSubmit: () => void;
   handleEdit: (value: "active" | "inactive") => void;
 }
@@ -16,6 +17,7 @@ interface INewPlankHeaderProps {
 export default function NewPlankHeader({
   title,
   submitted,
+  editEnabled,
   handleSubmit,
   handleEdit,
 }: INewPlankHeaderProps) {
@@ -27,6 +29,11 @@ export default function NewPlankHeader({
   const height = Dimensions.get("window").height;
 
   const handleBack = () => {
+    if (!editEnabled) {
+      router.push("/(drawer)");
+      return;
+    }
+
     if (submitted) {
       handleSubmit();
 
@@ -36,11 +43,26 @@ export default function NewPlankHeader({
     }
   };
 
+  // const handleBack = () => {
+  //   if (!editEnabled) {
+  //     return router.push("/(drawer)");
+  //   }
+
+  //   if (submitted) {
+  //     handleSubmit();
+  //     return router.push("/(drawer)");
+  //   }
+
+  //   handleOpen();
+  // };
+
   const handleYes = () => {
     handleOpen();
 
     router.push("/(drawer)");
   };
+
+  console.log(editEnabled);
 
   return (
     <View>
@@ -66,21 +88,23 @@ export default function NewPlankHeader({
               {title}
             </Text>
           </View>
-          {submitted ? (
-            <Feather
-              onPress={() => handleEdit("active")}
-              name="edit-2"
-              size={20}
-              color="#fbf9e6"
-            />
-          ) : (
-            <AntDesign
-              onPress={() => handleEdit("inactive")}
-              name="check"
-              size={20}
-              color="#fbf9e6"
-            />
-          )}
+          {editEnabled ? (
+            submitted ? (
+              <Feather
+                onPress={() => handleEdit("active")}
+                name="edit-2"
+                size={20}
+                color="#fbf9e6"
+              />
+            ) : (
+              <AntDesign
+                onPress={() => handleEdit("inactive")}
+                name="check"
+                size={20}
+                color="#fbf9e6"
+              />
+            )
+          ) : null}
         </View>
       </View>
       <AttentionModal

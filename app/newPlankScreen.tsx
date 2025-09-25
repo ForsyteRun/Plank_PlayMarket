@@ -39,6 +39,7 @@ export default function NewPlankScreen() {
       <NewPlankHeader
         title={edit ? EDIT : submittedTitle || INIT_TITLE}
         submitted={submitted}
+        editEnabled={localExercises?.editEnabled}
         handleSubmit={handleSubmit}
         handleEdit={handleEdit}
       />

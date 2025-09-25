@@ -11,11 +11,12 @@ export const useManageUserPlankFomList = () => {
     setExercises((prev) => prev.filter((e) => e.id !== id));
   };
 
-  const handlePlankPress = (plank: IPLank) => {
+  const handlePlankPress = (plank: IPLank, editEnabled: boolean) => {
     setLocalExercises({
       id: plank.id,
       title: plank.title,
       exercices: plank.exercices,
+      editEnabled,
     });
 
     router.push("/newPlankScreen");

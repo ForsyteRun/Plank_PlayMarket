@@ -4,6 +4,7 @@ export interface IPLank {
   id: string;
   title: string;
   exercices: IExercise[];
+  editEnabled?: boolean;
 }
 
 export interface IExercise {
