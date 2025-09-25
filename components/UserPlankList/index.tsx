@@ -11,7 +11,7 @@ export default function UserPlankList() {
       <ListTitle title="Пользовательские упражнения" />
 
       <FlatList
-        data={exercises}
+        data={exercises.custom}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <UserPlank plank={item} key={item.id} editEnabled={true} />

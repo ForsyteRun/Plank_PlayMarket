@@ -1,5 +1,8 @@
 import { INIT_PLANK } from "@/data/defaultPlank";
-import type { IPLank } from "@/types/plank";
+import { useLoadExercises } from "@/hooks/useLoadExercises";
+import { useSaveExercises } from "@/hooks/useSaveExercises";
+import { useSplashScreen } from "@/hooks/useSplashScreen";
+import type { IPLank, IPlankCollection } from "@/types/plank";
 import {
   Dispatch,
   FC,
@@ -11,17 +14,28 @@ import {
 } from "react";
 
 type ExerciseContextType = {
-  exercises: IPLank[];
+  exercises: IPlankCollection;
   localExercises: IPLank;
   setLocalExercises: Dispatch<SetStateAction<IPLank>>;
-  setExercises: Dispatch<SetStateAction<IPLank[]>>;
+  setExercises: Dispatch<SetStateAction<IPlankCollection>>;
 };
 
 const ExerciseContext = createContext<ExerciseContextType | null>(null);
 
 export const ExerciseProvider: FC<{ children: ReactNode }> = ({ children }) => {
-  const [exercises, setExercises] = useState<IPLank[]>([]);
+  const [exercises, setExercises] = useState<IPlankCollection>({
+    default: [],
+    custom: [],
+  });
   const [localExercises, setLocalExercises] = useState<IPLank>(INIT_PLANK);
+
+  const [loaded, setLoaded] = useState(false);
+
+  useSplashScreen(loaded);
+  useLoadExercises(setExercises, setLoaded);
+  useSaveExercises(exercises, loaded);
+
+  if (!loaded) return null;
 
   return (
     <ExerciseContext.Provider

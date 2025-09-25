@@ -17,6 +17,7 @@ export const defaultPlankList: IPLank[] = [
   {
     id: "1",
     title: "5 мин. комбо",
+    count: 0,
     exercices: [
       { id: "", type: "Full plank" as TExerciceType, time: "00:60" },
       { id: "", type: "Elbow plank" as TExerciceType, time: "00:30" },
@@ -31,6 +32,7 @@ export const defaultPlankList: IPLank[] = [
   {
     id: "2",
     title: "Обычная планка",
+    count: 0,
     exercices: [{ id: "", type: "Full plank" as TExerciceType, time: "00:60" }],
   },
 ].map((plank) => ({
@@ -41,9 +43,10 @@ export const defaultPlankList: IPLank[] = [
   })),
 }));
 
-export const INIT_PLANK = {
+export const INIT_PLANK: IPLank = {
   id: "",
   title: "",
   exercices: [],
+  count: 0,
   editEnabled: true,
 };

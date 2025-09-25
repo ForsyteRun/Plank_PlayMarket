@@ -1,21 +1,44 @@
-import type { IPLank } from "@/types/plank";
+import type { IPLank, IPlankCollection } from "@/types/plank";
 import { getUniqueId } from "@/utils/getUniqueId";
 
 export function createOrUpdatePlank(
-  prev: IPLank[],
+  prev: IPlankCollection,
   localExercises: IPLank,
   title: string,
   INIT_TITLE: string
-): IPLank[] {
+): IPlankCollection {
   const newPlank: IPLank = {
     id: localExercises.id || getUniqueId(),
     title: title.trim() || INIT_TITLE,
     exercices: [...localExercises.exercices],
+    count: localExercises.count,
   };
 
-  const exists = prev.some((plank) => plank.id === newPlank.id);
+  const existsInCustom = prev.custom.some((plank) => plank.id === newPlank.id);
+  const existsInDefault = prev.default.some(
+    (plank) => plank.id === newPlank.id
+  );
 
-  return exists
-    ? prev.map((plank) => (plank.id === newPlank.id ? newPlank : plank))
-    : [...prev, newPlank];
+  if (existsInCustom) {
+    return {
+      ...prev,
+      custom: prev.custom.map((plank) =>
+        plank.id === newPlank.id ? newPlank : plank
+      ),
+    };
+  }
+
+  if (existsInDefault) {
+    return {
+      ...prev,
+      default: prev.default.map((plank) =>
+        plank.id === newPlank.id ? { ...plank, count: newPlank.count } : plank
+      ),
+    };
+  }
+
+  return {
+    ...prev,
+    custom: [...prev.custom, newPlank],
+  };
 }

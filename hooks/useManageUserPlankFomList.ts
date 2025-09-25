@@ -8,7 +8,10 @@ export const useManageUserPlankFomList = () => {
   const { setExercises, setLocalExercises } = useExercises();
 
   const handleDelete = (id: string) => {
-    setExercises((prev) => prev.filter((e) => e.id !== id));
+    setExercises((prev) => ({
+      ...prev,
+      custom: prev.custom.filter((e) => e.id !== id),
+    }));
   };
 
   const handlePlankPress = (plank: IPLank, editEnabled: boolean) => {
@@ -16,6 +19,7 @@ export const useManageUserPlankFomList = () => {
       id: plank.id,
       title: plank.title,
       exercices: plank.exercices,
+      count: plank.count,
       editEnabled,
     });
 

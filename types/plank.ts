@@ -1,9 +1,14 @@
 import { ImageSourcePropType } from "react-native";
 
+export interface IPlankCollection {
+  default: IPLank[];
+  custom: IPLank[];
+}
 export interface IPLank {
   id: string;
   title: string;
   exercices: IExercise[];
+  count: number;
   editEnabled?: boolean;
 }
 
