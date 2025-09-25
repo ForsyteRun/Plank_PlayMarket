@@ -45,10 +45,7 @@ export default function UserPlank({
         overSwipe={0}
         {...rest}
       >
-        <Pressable
-          onPress={() => handlePlankPress(plank, editEnabled)}
-          style={{ minHeight: 60 }}
-        >
+        <Pressable onPress={() => handlePlankPress(plank, editEnabled)}>
           <PlankBanner
             id={plank.id}
             title={plank.title}

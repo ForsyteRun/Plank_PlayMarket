@@ -4,7 +4,7 @@ import { BannerImages, BannerInfo } from "./components";
 
 export default function PlankBanner({ title, exercices }: IPLank) {
   return (
-    <View className="flex-row justify-start p-4 bg-white">
+    <View className="min-h-32 flex-row justify-start p-4 bg-white">
       <BannerImages exercices={exercices} />
       <BannerInfo title={title} exercices={exercices} />
     </View>
