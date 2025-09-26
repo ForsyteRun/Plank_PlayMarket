@@ -17,7 +17,8 @@
         "backgroundImage": "./assets/images/adaptive-icon.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.forsyte.Plank_PlayMarket"
     },
     "web": {
       "bundler": "metro",
@@ -39,6 +40,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "85e17ab6-ca49-4783-b09a-af682c4fdcaf"
+      }
     }
   }
 }
