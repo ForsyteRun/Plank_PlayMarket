@@ -1,25 +1,26 @@
 import ListTitle from "@/components/shared/ListTitle";
-import { defaultPlankList } from "@/data/defaultPlank";
-import React from "react";
-import { FlatList, View } from "react-native";
-import UserPlank from "../UserPlankList/component/UserPlank";
+import { useManageUserPlankFomList } from "@/hooks";
+import { useAppSelector } from "@/store/hooks";
+import type { IPLank } from "@/types/plank";
+import { TouchableOpacity, View } from "react-native";
+import PlankBanner from "../shared/PlankBanner";
 
 export default function DefaultPlankList() {
+  const { handlePlankPress } = useManageUserPlankFomList();
+
+  const defaultExercises = useAppSelector((state) => state.exercises.default);
+
   return (
     <View>
       <ListTitle title="Упражнения по умолчанию" />
-      <FlatList
-        data={defaultPlankList}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <UserPlank
-            plank={item}
-            key={item.id}
-            swipeEnabled={false}
-            editEnabled={false}
-          />
-        )}
-      />
+      {defaultExercises.map((plank: IPLank) => (
+        <TouchableOpacity
+          onPressIn={() => handlePlankPress(plank)}
+          key={plank.id}
+        >
+          <PlankBanner {...plank} />
+        </TouchableOpacity>
+      ))}
     </View>
   );
 }

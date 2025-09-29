@@ -1,4 +1,3 @@
-import HeaderWrapper from "@/components/shared/HeaderWrapper";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Fontisto from "@expo/vector-icons/Fontisto";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
@@ -10,7 +9,9 @@ export default function DrawerLayout() {
   return (
     <Drawer
       screenOptions={{
-        header: (props) => <HeaderWrapper {...props} />,
+        headerStyle: { backgroundColor: "#01a79e" },
+        headerTitleStyle: { color: "#d8e4e8" },
+        headerTintColor: "#d8e4e8",
         drawerType: "front",
         drawerStyle: { backgroundColor: "#d8e4e8", height: "100%" },
         drawerActiveBackgroundColor: "#b2edea",
