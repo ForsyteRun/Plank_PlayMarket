@@ -1,21 +1,18 @@
+import HeaderWrapper from "@/components/shared/HeaderWrapper";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Fontisto from "@expo/vector-icons/Fontisto";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { DrawerItem, DrawerItemList } from "@react-navigation/drawer";
 import { Drawer } from "expo-router/drawer";
-import { Dimensions, Image, View } from "react-native";
+import { Image, View } from "react-native";
 
 export default function DrawerLayout() {
-  const height = Dimensions.get("window").height;
-
   return (
     <Drawer
       screenOptions={{
-        drawerStyle: { backgroundColor: "#d8e4e8" },
-        headerStyle: { height: height * 0.12, backgroundColor: "#3BA79B" },
-        headerTitleStyle: { color: "#fbf9e6", fontSize: 18 },
-        headerTitle: "Упражнения",
-        headerTintColor: "#fbf9e6",
+        header: (props) => <HeaderWrapper {...props} />,
+        drawerType: "front",
+        drawerStyle: { backgroundColor: "#d8e4e8", height: "100%" },
         drawerActiveBackgroundColor: "#b2edea",
         drawerActiveTintColor: "#b2e6ed",
         drawerInactiveTintColor: "#000",

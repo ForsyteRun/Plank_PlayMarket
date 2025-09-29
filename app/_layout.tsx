@@ -3,6 +3,9 @@ import "./../global.css";
 
 import { ExerciseProvider } from "@/context/ExerciseContext";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { enableScreens } from "react-native-screens";
+
+enableScreens(true);
 
 export default function RootLayout() {
   return (
@@ -11,12 +14,11 @@ export default function RootLayout() {
         <Stack>
           <Stack.Screen
             name="(drawer)"
-            options={{ headerShown: false, animation: "none" }}
+            options={{ animation: "none", headerShown: false }}
           />
           <Stack.Screen
             name="newPlankScreen"
             options={{
-              headerShown: false,
               animation: "none",
             }}
           />

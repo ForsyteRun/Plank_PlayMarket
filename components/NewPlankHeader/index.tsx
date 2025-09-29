@@ -1,13 +1,15 @@
-import { Dimensions, Text, View } from "react-native";
+import { Text, View } from "react-native";
 
 import { useOpen } from "@/hooks";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Feather from "@expo/vector-icons/Feather";
-import { useRouter } from "expo-router";
+import { DrawerHeaderProps } from "@react-navigation/drawer";
 import { memo } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import AntPressbleIcon from "../shared/AntIcon";
 import AttentionModal from "../shared/AttentionModal";
-interface INewPlankHeaderProps {
+
+interface INewPlankHeaderProps extends DrawerHeaderProps {
   title: string;
   submitted: boolean;
   editEnabled?: boolean;
@@ -20,72 +22,72 @@ const NewPlankHeader = memo(
     title,
     submitted,
     editEnabled,
+    route,
+    navigation,
     handleSubmit,
     handleEdit,
   }: INewPlankHeaderProps) => {
-    const router = useRouter();
     const { top } = useSafeAreaInsets();
 
     const { isOpen, handleOpen } = useOpen();
 
-    const height = Dimensions.get("window").height;
-
     const handleBack = () => {
-      if (!editEnabled) {
-        router.push("/(drawer)");
-        return;
-      }
+      navigation.goBack();
+      // if (!editEnabled) {
+      //   // router.push("/(drawer)");
+      //   return;
+      // }
 
-      if (submitted) {
-        handleSubmit();
+      // if (submitted) {
+      //   handleSubmit();
 
-        router.push("/(drawer)");
-      } else {
-        handleOpen();
-      }
+      //   // router.push("/(drawer)");
+      // } else {
+      //   handleOpen();
+      // }
+    };
+
+    const handleDrawer = () => {
+      navigation.openDrawer();
     };
 
     const handleYes = () => {
       handleOpen();
 
-      router.push("/(drawer)");
+      // router.push("/(drawer)");
     };
+
+    const isHomePage = route.name === "index";
 
     return (
       <View>
         <View
-          style={{ minHeight: height * 0.12, paddingTop: top }}
+          style={{ paddingTop: top + 25 }}
           className="w-full flex-row items-end justify-between bg-PRIMARY pr-4 py-4"
         >
-          <View className="w-full flex-row items-center justify-between ">
-            <View className="flex-row items-center justify-center gap-6">
-              <AntDesign
-                onPress={handleBack}
-                name="arrow-left"
-                size={20}
-                color="#fbf9e6"
-              />
-              <Text
-                style={{
-                  color: "#fbf9e6",
-                  fontSize: 22,
-                  width: "80%",
-                }}
-              >
-                {title}
+          <View className="w-full flex-row items-center justify-between px-6">
+            <View className="flex-row items-center gap-5">
+              {isHomePage ? (
+                <AntPressbleIcon title="menu" callback={handleDrawer} />
+              ) : (
+                <AntPressbleIcon title="arrow-left" callback={handleBack} />
+              )}
+
+              <Text className="text-BG_WHITE text-2xl">
+                {isHomePage ? "Упражнения" : title}
               </Text>
             </View>
             {editEnabled ? (
               submitted ? (
                 <Feather
-                  onPress={() => handleEdit("active")}
+                  onPressIn={() => handleEdit("active")}
                   name="edit-2"
                   size={20}
                   color="#fbf9e6"
                 />
               ) : (
                 <AntDesign
-                  onPress={() => handleEdit("inactive")}
+                  onPressIn={() => handleEdit("inactive")}
                   name="check"
                   size={20}
                   color="#fbf9e6"
