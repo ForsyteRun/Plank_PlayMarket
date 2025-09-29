@@ -15,8 +15,9 @@ const initialState: InitialState = {
 const exercisesSlice = createSlice({
   name: "exercises",
   initialState,
-  reducers: {},
+  reducers: {
+    setExercises: (state, action) => (state = action.payload),
+  },
 });
 
-export const {} = exercisesSlice.actions;
-export default exercisesSlice.reducer;
+export default exercisesSlice;

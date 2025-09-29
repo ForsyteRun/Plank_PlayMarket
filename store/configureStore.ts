@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { combineReducers } from "@reduxjs/toolkit";
 import { persistReducer } from "redux-persist";
 
-import ExercisesReducer from "./exercises";
+import exercises from "./exercises";
 
 const persistConfig = {
   key: "root",
@@ -11,7 +11,7 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  exercises: ExercisesReducer,
+  exercises: exercises.reducer,
 });
 
 export const persistedReducer = persistReducer(persistConfig, rootReducer);
