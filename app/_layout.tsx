@@ -1,6 +1,7 @@
 import { Stack } from "expo-router";
 import "./../global.css";
 
+import HeaderWrapper from "@/components/shared/HeaderWrapper";
 import { ExerciseProvider } from "@/context/ExerciseContext";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { enableScreens } from "react-native-screens";
@@ -20,6 +21,7 @@ export default function RootLayout() {
             name="newPlankScreen"
             options={{
               animation: "none",
+              header: (props) => <HeaderWrapper {...props} />,
             }}
           />
         </Stack>
