@@ -1,31 +1,27 @@
 import { Stack } from "expo-router";
 import "./../global.css";
 
-import HeaderWrapper from "@/components/shared/HeaderWrapper";
-import { ExerciseProvider } from "@/context/ExerciseContext";
+import StoreProvider from "@/providers/storeProvider";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { enableScreens } from "react-native-screens";
-
-enableScreens(true);
 
 export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <ExerciseProvider>
+      <StoreProvider>
         <Stack>
           <Stack.Screen
             name="(drawer)"
             options={{ animation: "none", headerShown: false }}
           />
           <Stack.Screen
-            name="newPlankScreen"
+            name="PlankScreen"
             options={{
               animation: "none",
-              header: (props) => <HeaderWrapper {...props} />,
+              headerShown: false,
             }}
           />
         </Stack>
-      </ExerciseProvider>
+      </StoreProvider>
     </GestureHandlerRootView>
   );
 }

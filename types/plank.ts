@@ -9,7 +9,7 @@ export interface IPLank {
   title: string;
   exercices: IExercise[];
   count: number;
-  editEnabled?: boolean;
+  editEnabled: boolean;
 }
 
 export interface IExercise {

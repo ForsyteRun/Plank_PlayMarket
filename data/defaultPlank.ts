@@ -18,6 +18,7 @@ export const defaultPlankList: IPLank[] = [
     id: "1",
     title: "5 мин. комбо",
     count: 0,
+    editEnabled: false,
     exercices: [
       { id: "1", type: "Full plank" as TExerciceType, time: "00:60" },
       { id: "2", type: "Elbow plank" as TExerciceType, time: "00:30" },
@@ -33,6 +34,7 @@ export const defaultPlankList: IPLank[] = [
     id: "2",
     title: "Обычная планка",
     count: 0,
+    editEnabled: false,
     exercices: [
       { id: "1", type: "Full plank" as TExerciceType, time: "00:60" },
     ],
