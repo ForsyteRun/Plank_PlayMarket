@@ -8,6 +8,7 @@ import {
 const containerPadding = 20;
 export const useNewPlankFormAnimation = () => {
   const width = Dimensions.get("window").width;
+
   const startWidth = width - containerPadding * 2;
 
   const inputWidth = useSharedValue(startWidth);
