@@ -14,7 +14,7 @@ export default function RootLayout() {
             options={{ animation: "none", headerShown: false }}
           />
           <Stack.Screen
-            name="PlankScreen"
+            name="plankScreen"
             options={{
               animation: "none",
               headerShown: false,

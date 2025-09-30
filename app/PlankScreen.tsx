@@ -19,8 +19,6 @@ export default function PlankScreen() {
 
   if (!plank) return;
 
-  console.log("PlankScreen");
-
   const totalExercicesTime = sumExerciceTimes(plank.exercices);
 
   return (
