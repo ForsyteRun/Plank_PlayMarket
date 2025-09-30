@@ -2,15 +2,21 @@ import React, { Dispatch, SetStateAction } from "react";
 import { Pressable, Text } from "react-native";
 
 interface IAddNewPlankButtonProps {
-  setModalVisible: Dispatch<SetStateAction<boolean>>;
+  setNewPlankModalVisible?: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function AddNewPlankButton({
-  setModalVisible,
+  setNewPlankModalVisible,
 }: IAddNewPlankButtonProps) {
+  const handlePress = () => {
+    if (setNewPlankModalVisible) {
+      setNewPlankModalVisible(true);
+    }
+  };
+
   return (
     <Pressable
-      onPress={() => setModalVisible(true)}
+      onPressIn={handlePress}
       className="bg-LIGHT_GREY flex-row items-center justify-center gap-4 px-2 py-5"
     >
       <Text className="text-3xl text-black">+</Text>
