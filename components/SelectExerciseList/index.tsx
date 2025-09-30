@@ -1,8 +1,8 @@
-import { useExercises } from "@/context/ExerciseContext";
 import { IMAGES } from "@/data/defaultPlank";
 import type { IExercise, TExerciceType } from "@/types/plank";
 import { getUniqueId } from "@/utils/getUniqueId";
 import cn from "classnames";
+import { Dispatch, SetStateAction } from "react";
 import {
   FlatList,
   Image,
@@ -12,10 +12,16 @@ import {
   View,
 } from "react-native";
 
-export default function SelectExerciseList() {
-  const { setLocalExercises } = useExercises();
+interface ISelectExerciseListProps {
+  setSelectedPlanks: Dispatch<SetStateAction<IExercise[]>>;
+  setNewPlankModalVisible: Dispatch<SetStateAction<boolean>>;
+}
 
-  const handleSelectExercice = (
+export default function SelectExerciseList({
+  setSelectedPlanks,
+  setNewPlankModalVisible,
+}: ISelectExerciseListProps) {
+  const selectExercice = (
     rowExercise: [TExerciceType, ImageSourcePropType]
   ) => {
     const exercise: IExercise = {
@@ -25,10 +31,8 @@ export default function SelectExerciseList() {
       image: rowExercise[1],
     };
 
-    setLocalExercises((prev) => ({
-      ...prev,
-      exercices: [...prev.exercices, exercise],
-    }));
+    setSelectedPlanks((prev) => [...prev, exercise]);
+    setNewPlankModalVisible(false);
   };
 
   return (
@@ -43,8 +47,8 @@ export default function SelectExerciseList() {
 
         return (
           <Pressable
-            onPress={() =>
-              handleSelectExercice([item[0] as TExerciceType, item[1]])
+            onPressIn={() =>
+              selectExercice([item[0] as TExerciceType, item[1]])
             }
             className={cn(
               "w-full h-20 flex-row items-center justify-between gap-2 bg-gray-100  border-b border-LIGHT_GREY px-5",

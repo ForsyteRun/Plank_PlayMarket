@@ -3,31 +3,26 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import cn from "classnames";
 import { Image, Pressable, Text, View } from "react-native";
 import BannerCount from "../BannerCount";
+import { SwipeableComponent } from "../SwipeableComponent";
+import UnderlaySwapPlankBanner from "../UnderlaySwapPlankBanner";
 
 interface IExerciseBannerProps {
   item: IExercise;
-  isFirst: boolean;
-  isRest: boolean;
   index: number;
-  handleBannerOpen: () => void;
+  changeTime?: () => void;
+  swipeable: boolean;
 }
 
 export default function ExerciceBanner({
   item,
   index,
-  isFirst,
-  isRest,
-  handleBannerOpen,
+  changeTime,
+  swipeable,
 }: IExerciseBannerProps) {
-  return (
+  const content = (
     <Pressable
-      onPress={handleBannerOpen}
-      className={cn(
-        "flex-1 flex-row items-center justify-between px-5 p-4 bg-white",
-        {
-          "pt-4": isFirst,
-        }
-      )}
+      onPressIn={changeTime}
+      className="flex-row items-center justify-between px-5 py-4 bg-white"
     >
       <View className="flex-row items-center gap-4">
         <BannerCount count={index} />
@@ -39,20 +34,31 @@ export default function ExerciceBanner({
           </View>
         </View>
       </View>
-      <View
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          flexBasis: "30%",
-        }}
-      >
+
+      <View className="flex items-center justify-center basis-1/3">
         <Image
           source={item.image}
-          className={cn(isRest ? "w-7 h-7" : "w-24 h-16")}
+          className={cn(item.type === "rest" ? "w-7 h-7" : "w-24 h-16")}
           resizeMode="contain"
         />
       </View>
     </Pressable>
+  );
+
+  if (!swipeable) return content;
+
+  return (
+    <SwipeableComponent<IExercise>
+      item={item}
+      key={item.id}
+      renderUnderlayLeft={() => (
+        <UnderlaySwapPlankBanner<IExercise> handleDelete={() => {}} />
+      )}
+      snapPointsLeft={[80]}
+      activationThreshold={80}
+      overSwipe={0}
+    >
+      {content}
+    </SwipeableComponent>
   );
 }
