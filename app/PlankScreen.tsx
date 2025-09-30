@@ -1,12 +1,8 @@
-import NewPlankForm from "@/components/NewPlankForm";
-import PlankSelectWithModals from "@/components/PlankSelectWithModals";
-import AnimatedContent from "@/components/shared/AnimatedContent";
 import Header from "@/components/shared/Header";
-import SelectablePlankList from "@/components/shared/SelectablePlankList";
-import SubmitInfo from "@/components/shared/SubmitInfo";
 import { useParsedParams } from "@/hooks";
 import type { IPLank } from "@/types/plank";
 import { sumExerciceTimes } from "@/utils/sumExerciceTimes";
+import { useState } from "react";
 import {
   SafeAreaView,
   useSafeAreaInsets,
@@ -14,10 +10,11 @@ import {
 
 export default function PlankScreen() {
   const { bottom } = useSafeAreaInsets();
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const plank = useParsedParams<IPLank>("data");
 
-  if (!plank) return;
+  if (!plank) return null;
 
   const totalExercicesTime = sumExerciceTimes(plank.exercices);
 
@@ -29,28 +26,28 @@ export default function PlankScreen() {
     >
       <Header
         title={plank.title}
-        submitted={false}
-        handleSubmit={() => {}}
-        handleEdit={() => {}}
+        editEnabled={plank.editEnabled}
+        isSubmitted={isSubmitted}
+        setIsSubmitted={setIsSubmitted}
       />
-      <AnimatedContent>
-        {!plank.editEnabled ? (
-          // {submitted || !plank.editEnabled ? (
-          <SubmitInfo totalExercicesTime={totalExercicesTime} />
-        ) : (
-          <NewPlankForm
-            edit={false}
-            title={plank.title}
-            setTitle={() => {}}
-            totalExercicesTime={totalExercicesTime}
-          />
-        )}
+      {/* <AnimatedContent>
         {plank.editEnabled ? (
-          <PlankSelectWithModals data={plank} submitted={false} />
+          <Fragment>
+            <NewPlankForm
+              edit={false}
+              title={plank.title}
+              setTitle={() => {}}
+              totalExercicesTime={totalExercicesTime}
+            />
+            <PlankSelectWithModals data={plank} submitted={false} />
+          </Fragment>
         ) : (
-          <SelectablePlankList data={plank} submitted={false} />
+          <Fragment>
+            <SubmitInfo totalExercicesTime={totalExercicesTime} />
+            <SelectablePlankList data={plank} submitted={false} />
+          </Fragment>
         )}
-      </AnimatedContent>
+      </AnimatedContent> */}
     </SafeAreaView>
   );
 }

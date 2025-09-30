@@ -1,5 +1,6 @@
 import type { IPLank, TExerciceType } from "@/types/plank";
 import type { ImageSourcePropType } from "react-native";
+import { INIT_TITLE } from "./header";
 
 export const IMAGES: Record<TExerciceType, ImageSourcePropType> = {
   rest: require("./../assets/images/rest.png"),
@@ -48,8 +49,8 @@ export const defaultPlankList: IPLank[] = [
 }));
 
 export const INIT_PLANK: IPLank = {
-  id: "",
-  title: "",
+  id: new Date().getTime().toString(),
+  title: INIT_TITLE,
   exercices: [],
   count: 0,
   editEnabled: true,

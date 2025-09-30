@@ -1,51 +1,42 @@
-import type { NativeStackHeaderProps } from "@react-navigation/native-stack";
-import { Text, View } from "react-native";
-
 import { useOpen } from "@/hooks";
-import Feather from "@expo/vector-icons/Feather";
-import { DrawerHeaderProps } from "@react-navigation/drawer";
 import { useRouter } from "expo-router";
-import { memo } from "react";
+import { Dispatch, SetStateAction, memo } from "react";
+import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import AntPressbleIcon from "../AntIcon";
 import AttentionModal from "../AttentionModal";
-
-const isDrawerHeader = (
-  props: IHeaderWrapperProps
-): props is DrawerHeaderProps => "layout" in props;
-
-type IHeaderWrapperProps = DrawerHeaderProps | NativeStackHeaderProps;
+import HeaderContent from "./components/HeaderContent";
 
 interface INewPlankHeaderProps {
   title: string;
-  submitted: boolean;
-  headerProps: IHeaderWrapperProps;
+  isSubmitted: boolean;
   editEnabled?: boolean;
-  handleSubmit: () => void;
-  handleEdit: (value: "active" | "inactive") => void;
+  setIsSubmitted: Dispatch<SetStateAction<boolean>>;
 }
 
 const Header = memo(
   ({
     title,
-    submitted,
+    isSubmitted,
     editEnabled,
-    headerProps,
-    // handleSubmit,
-    handleEdit,
+    setIsSubmitted,
   }: INewPlankHeaderProps) => {
     const { top } = useSafeAreaInsets();
-    const router = useRouter();
-    const { route, navigation } = headerProps;
 
+    const router = useRouter();
     const { isOpen, handleOpen } = useOpen();
 
+    // const localExercises = useSelector(
+    //   (state: RootState) => state.exercises.localExercises
+    // );
+
+    // console.log("Header", localExercises);
+
     const handleBack = () => {
-      if (isDrawerHeader(headerProps)) {
-        navigation.navigate("index");
-      } else {
-        router.push("/(drawer)");
-      }
+      // if (isDrawerHeader(headerProps)) {
+      //   navigation.navigate("index");
+      // } else {
+      router.push("/(drawer)");
+      // }
       // if (!editEnabled) {
       //   // router.push("/(drawer)");
       //   return;
@@ -60,54 +51,25 @@ const Header = memo(
       // }
     };
 
-    const handleDrawer = () => {
-      if (isDrawerHeader(headerProps)) {
-        headerProps.navigation.openDrawer();
-      }
-    };
-
     const handleYes = () => {
       handleOpen();
 
       // router.push("/(drawer)");
     };
 
-    const isHomePage = route.name === "index";
-
     return (
       <View>
         <View
-          style={{ paddingTop: top + 25 }}
-          className="w-full flex-row items-end justify-between bg-PRIMARY pr-4 py-4"
+          style={{ paddingTop: top + 11 }}
+          className="w-full flex-row items-end justify-between bg-PRIMARY pr-4 pb-4"
         >
-          <View className="w-full flex-row items-center justify-between px-6">
-            <View className="flex-row items-center gap-5">
-              {isHomePage ? (
-                <AntPressbleIcon title="menu" callback={handleDrawer} />
-              ) : (
-                <AntPressbleIcon title="arrow-left" callback={handleBack} />
-              )}
-
-              <Text className="text-BG_WHITE text-2xl">
-                {isHomePage ? "Упражнения" : title}
-              </Text>
-            </View>
-            {editEnabled ? (
-              submitted ? (
-                <Feather
-                  onPressIn={() => handleEdit("active")}
-                  name="edit-2"
-                  size={20}
-                  color="#fbf9e6"
-                />
-              ) : (
-                <AntPressbleIcon
-                  title="check"
-                  callback={() => handleEdit("inactive")}
-                />
-              )
-            ) : null}
-          </View>
+          <HeaderContent
+            title={title}
+            isSubmitted={isSubmitted}
+            handleBack={handleBack}
+            editEnabled={editEnabled}
+            setIsSubmitted={setIsSubmitted}
+          />
         </View>
         <AttentionModal
           title="Отменить?"
