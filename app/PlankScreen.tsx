@@ -1,14 +1,7 @@
-import NewPlankForm from "@/components/NewPlankForm";
-import PlankSelectWithModals from "@/components/PlankSelectWithModals";
-import AnimatedContent from "@/components/shared/AnimatedContent";
+import PlankScreenContent from "@/components/PlankScreenContent";
 import Header from "@/components/shared/Header";
-import SelectablePlankList from "@/components/shared/SelectablePlankList";
-import SubmitInfo from "@/components/shared/SubmitInfo";
 import { useCustomPlankManage, useParsedParams } from "@/hooks";
 import type { IPLank } from "@/types/plank";
-import { sumExerciceTimes } from "@/utils/sumExerciceTimes";
-import { Fragment } from "react";
-import { Text, View } from "react-native";
 import {
   SafeAreaView,
   useSafeAreaInsets,
@@ -21,10 +14,14 @@ export default function PlankScreen() {
 
   if (!plank) return null;
 
-  const { submittedTitle, isSubmitted, setTitle, handleEdit } =
-    useCustomPlankManage(plank.title);
-
-  const totalExercicesTime = sumExerciceTimes(plank.exercices);
+  const {
+    submittedTitle,
+    isSubmitted,
+    selectedPlanks,
+    setSelectedPlanks,
+    setTitle,
+    handleEdit,
+  } = useCustomPlankManage(plank.title);
 
   return (
     <SafeAreaView
@@ -38,28 +35,16 @@ export default function PlankScreen() {
         isSubmitted={isSubmitted}
         handleEdit={handleEdit}
       />
-      <AnimatedContent>
-        {plank.editEnabled && !isSubmitted ? (
-          <View
-            className="pb-5 pt-2 bg-SECONDARY"
-            style={{ paddingHorizontal: 20 }}
-          >
-            <NewPlankForm
-              title={submittedTitle || plank.title}
-              setTitle={setTitle}
-            />
-            <Text className="text-teal-800">
-              Общее время: {totalExercicesTime}
-            </Text>
-            <PlankSelectWithModals data={plank} submitted={false} />
-          </View>
-        ) : (
-          <Fragment>
-            <SubmitInfo totalExercicesTime={totalExercicesTime} />
-            <SelectablePlankList data={plank} submitted={false} />
-          </Fragment>
-        )}
-      </AnimatedContent>
+      <PlankScreenContent
+        {...{
+          plank,
+          isSubmitted,
+          submittedTitle,
+          selectedPlanks,
+          setTitle,
+          setSelectedPlanks,
+        }}
+      />
     </SafeAreaView>
   );
 }
