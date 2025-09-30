@@ -2,7 +2,7 @@ import AttentionModal from "@/components/shared/AttentionModal";
 import PlankBanner from "@/components/shared/PlankBanner";
 import { SwipeableComponent } from "@/components/shared/SwipeableComponent";
 import UnderlaySwapPlankBanner from "@/components/shared/UnderlaySwapPlankBanner";
-import { useManageUserPlankFomList, useOpen } from "@/hooks";
+import { useNavigateToPlankScreen, useOpen } from "@/hooks";
 import type { IPLank } from "@/types/plank";
 import { SwipeableComponentProps } from "@/types/swipeableComponentProps";
 import { Pressable } from "react-native";
@@ -18,7 +18,7 @@ export default function UserPlank({
   editEnabled,
   ...rest
 }: IUserPlankProps) {
-  const { handleDelete, handlePlankPress } = useManageUserPlankFomList();
+  const { navigateToPlankScreen } = useNavigateToPlankScreen();
   const { isOpen, handleOpen } = useOpen();
 
   const handleAttentionPlank = () => {
@@ -27,7 +27,7 @@ export default function UserPlank({
 
   const handleDeletePlank = () => {
     handleOpen();
-    handleDelete(plank.id);
+    // handleDelete(plank.id);
   };
 
   return (
@@ -45,11 +45,13 @@ export default function UserPlank({
         overSwipe={0}
         {...rest}
       >
-        <Pressable onPress={() => handlePlankPress(plank, editEnabled)}>
+        <Pressable onPressIn={() => navigateToPlankScreen(plank)}>
           <PlankBanner
             id={plank.id}
             title={plank.title}
             exercices={plank.exercices}
+            count={plank.count}
+            editEnabled={plank.editEnabled}
           />
         </Pressable>
       </SwipeableComponent>
