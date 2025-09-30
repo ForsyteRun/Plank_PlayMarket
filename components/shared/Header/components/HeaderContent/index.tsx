@@ -1,13 +1,12 @@
 import AntPressbleIcon from "@/components/shared/AntIcon";
 import FeatherPressbleIcon from "@/components/shared/FatherIcon";
-import { Dispatch, SetStateAction } from "react";
 import { Text, View } from "react-native";
 
 interface IHeaderContentProps {
   title: string;
   isSubmitted: boolean;
   editEnabled?: boolean;
-  setIsSubmitted: Dispatch<SetStateAction<boolean>>;
+  handleEdit: (value: "edit" | "submit") => void;
   handleBack: () => void;
 }
 
@@ -15,12 +14,12 @@ export default function HeaderContent({
   title,
   isSubmitted,
   editEnabled,
-  setIsSubmitted,
+  handleEdit,
   handleBack,
 }: IHeaderContentProps) {
   return (
     <View className="w-full flex-row items-center justify-between px-4 py-2">
-      <View className="flex-row items-center gap-5">
+      <View className="w-5/6 flex-row items-center gap-5 pr-4">
         <AntPressbleIcon title="arrow-left" callback={handleBack} />
         <Text className="text-BG_WHITE text-2xl">{title}</Text>
       </View>
@@ -28,12 +27,12 @@ export default function HeaderContent({
         (isSubmitted ? (
           <FeatherPressbleIcon
             title="edit-2"
-            callback={() => setIsSubmitted(false)}
+            callback={() => handleEdit("edit")}
           />
         ) : (
           <AntPressbleIcon
             title="check"
-            callback={() => setIsSubmitted(true)}
+            callback={() => handleEdit("submit")}
           />
         ))}
     </View>
