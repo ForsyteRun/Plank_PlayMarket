@@ -3,11 +3,13 @@ import { usePlankFormState } from "./usePlankFormState";
 
 export const useCustomPlankManage = (initialTitle: string) => {
   const {
-    isSubmitted,
-    setIsSubmitted,
     title,
-    setTitle,
+    isSubmitted,
     submittedTitle,
+    selectedPlanks,
+    setTitle,
+    setIsSubmitted,
+    setSelectedPlanks,
     setSubmittedTitle,
   } = usePlankFormState(initialTitle);
 
@@ -48,7 +50,9 @@ export const useCustomPlankManage = (initialTitle: string) => {
   return {
     isSubmitted,
     submittedTitle,
+    selectedPlanks,
 
+    setSelectedPlanks,
     setIsSubmitted,
     setTitle,
 
