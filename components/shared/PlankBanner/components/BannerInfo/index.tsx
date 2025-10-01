@@ -1,6 +1,6 @@
 import BunnerItem from "@/components/shared/BunnerItem";
 import type { IExercise } from "@/types/plank";
-import { getTotalTime } from "@/utils/getTotalTime";
+import { sumExerciceTimes } from "@/utils/sumExerciceTimes";
 import { Text, View } from "react-native";
 interface IBannerInfoProps {
   title: string;
@@ -8,7 +8,7 @@ interface IBannerInfoProps {
 }
 
 export default function BannerInfo({ title, exercices }: IBannerInfoProps) {
-  const totalTime = getTotalTime(exercices);
+  const totalTime = sumExerciceTimes(exercices);
 
   const step = `${exercices.length} ${exercices.length === 1 ? "шаг" : "шагов"}`;
 
