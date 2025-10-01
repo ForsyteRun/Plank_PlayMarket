@@ -1,20 +1,23 @@
 import type { IExercise, IPLank } from "@/types/plank";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { TouchableOpacity, View } from "react-native";
-import { useSwipeableItemParams } from "react-native-swipeable-item";
+import { GestureResponderEvent, TouchableOpacity, View } from "react-native";
 
 interface IUnderlayRightUserPlankProps {
-  handleDelete: (id: string) => void;
+  handleDelete: () => void;
 }
 
 export default function UnderlaySwapPlankBanner<T extends IPLank | IExercise>({
   handleDelete,
 }: IUnderlayRightUserPlankProps) {
-  const { item } = useSwipeableItemParams<T>();
+  const handlePress = (e: GestureResponderEvent) => {
+    e.stopPropagation();
+
+    handleDelete();
+  };
 
   return (
     <View className="flex-1  bg-RED items-end justify-center pr-6">
-      <TouchableOpacity onPressIn={() => handleDelete(item.id)}>
+      <TouchableOpacity onPressIn={handlePress}>
         <MaterialIcons name="delete" size={34} color="white" />
       </TouchableOpacity>
     </View>

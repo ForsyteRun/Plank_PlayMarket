@@ -12,6 +12,7 @@ interface IExerciseBannerProps {
   index: number;
   swipeable: boolean;
   setSelectedId?: Dispatch<SetStateAction<string>>;
+  setSelectedPlanks: Dispatch<SetStateAction<IExercise[]>>;
 }
 
 export default function ExerciceBanner({
@@ -19,9 +20,14 @@ export default function ExerciceBanner({
   index,
   swipeable,
   setSelectedId,
+  setSelectedPlanks,
 }: IExerciseBannerProps) {
   const onPress = () => {
     if (swipeable && setSelectedId) setSelectedId(item.id);
+  };
+
+  const handleDelete = () => {
+    setSelectedPlanks((prev) => prev.filter((plank) => plank.id !== item.id));
   };
 
   const content = (
@@ -57,7 +63,7 @@ export default function ExerciceBanner({
       item={item}
       key={item.id}
       renderUnderlayLeft={() => (
-        <UnderlaySwapPlankBanner<IExercise> handleDelete={() => {}} />
+        <UnderlaySwapPlankBanner<IExercise> handleDelete={handleDelete} />
       )}
       snapPointsLeft={[80]}
       activationThreshold={80}

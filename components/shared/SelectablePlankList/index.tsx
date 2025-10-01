@@ -10,6 +10,7 @@ interface ISelectablePlankListProps {
   isSubmitted: boolean;
   swipeable?: boolean;
   setNewPlankModalVisible?: Dispatch<SetStateAction<boolean>>;
+  setSelectedPlanks: Dispatch<SetStateAction<IExercise[]>>;
   setSelectedId?: Dispatch<SetStateAction<string>>;
 }
 
@@ -19,6 +20,7 @@ export default function SelectablePlankList({
   isSubmitted,
   swipeable = false,
   setNewPlankModalVisible,
+  setSelectedPlanks,
   setSelectedId,
 }: ISelectablePlankListProps) {
   const renderFooter = () => {
@@ -40,6 +42,7 @@ export default function SelectablePlankList({
           index={index}
           swipeable={swipeable}
           setSelectedId={setSelectedId}
+          setSelectedPlanks={setSelectedPlanks}
         />
       )}
       keyExtractor={(item) => item.id}

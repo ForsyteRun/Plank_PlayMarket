@@ -36,6 +36,7 @@ export default function PlankSelectWithModals({
         swipeable
         setNewPlankModalVisible={setNewPlankModalVisible}
         setSelectedId={setSelectedId}
+        setSelectedPlanks={setSelectedPlanks}
       />
     </View>
   );
