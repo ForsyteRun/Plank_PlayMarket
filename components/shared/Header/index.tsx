@@ -1,8 +1,6 @@
-import { useOpen } from "@/hooks";
-import { useRouter } from "expo-router";
-import { Dispatch, SetStateAction, memo } from "react";
+import { useNavigateToDrawerScreen, useOpen } from "@/hooks";
+import { memo } from "react";
 import { View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import AttentionModal from "../AttentionModal";
 import HeaderContent from "./components/HeaderContent";
 
@@ -10,67 +8,36 @@ interface INewPlankHeaderProps {
   title: string;
   isSubmitted: boolean;
   editEnabled?: boolean;
-  setIsSubmitted: Dispatch<SetStateAction<boolean>>;
+  handleEdit: (value: "edit" | "submit") => void;
 }
 
 const Header = memo(
-  ({
-    title,
-    isSubmitted,
-    editEnabled,
-    setIsSubmitted,
-  }: INewPlankHeaderProps) => {
-    const { top } = useSafeAreaInsets();
-
-    const router = useRouter();
+  ({ title, isSubmitted, editEnabled, handleEdit }: INewPlankHeaderProps) => {
+    const { navigateToDrawerScreen } = useNavigateToDrawerScreen();
     const { isOpen, handleOpen } = useOpen();
 
-    // const localExercises = useSelector(
-    //   (state: RootState) => state.exercises.localExercises
-    // );
-
-    // console.log("Header", localExercises);
-
     const handleBack = () => {
-      // if (isDrawerHeader(headerProps)) {
-      //   navigation.navigate("index");
-      // } else {
-      router.push("/(drawer)");
-      // }
-      // if (!editEnabled) {
-      //   // router.push("/(drawer)");
-      //   return;
-      // }
-
-      // if (submitted) {
-      //   handleSubmit();
-
-      //   // router.push("/(drawer)");
-      // } else {
-      //   handleOpen();
-      // }
+      if (!isSubmitted) {
+        handleOpen();
+      } else {
+        navigateToDrawerScreen();
+      }
     };
 
     const handleYes = () => {
       handleOpen();
-
-      // router.push("/(drawer)");
+      navigateToDrawerScreen();
     };
 
     return (
       <View>
-        <View
-          style={{ paddingTop: top + 11 }}
-          className="w-full flex-row items-end justify-between bg-PRIMARY pr-4 pb-4"
-        >
-          <HeaderContent
-            title={title}
-            isSubmitted={isSubmitted}
-            handleBack={handleBack}
-            editEnabled={editEnabled}
-            setIsSubmitted={setIsSubmitted}
-          />
-        </View>
+        <HeaderContent
+          title={title}
+          isSubmitted={isSubmitted}
+          handleBack={handleBack}
+          editEnabled={editEnabled}
+          handleEdit={handleEdit}
+        />
         <AttentionModal
           title="Отменить?"
           text="Вы уверены что хотите отменить изменения?"
