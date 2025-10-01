@@ -1,6 +1,7 @@
 import AntPressbleIcon from "@/components/shared/AntIcon";
 import FeatherPressbleIcon from "@/components/shared/FatherIcon";
 import { Text, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 interface IHeaderContentProps {
   title: string;
@@ -17,8 +18,13 @@ export default function HeaderContent({
   handleEdit,
   handleBack,
 }: IHeaderContentProps) {
+  const { top } = useSafeAreaInsets();
+
   return (
-    <View className="w-full flex-row items-center justify-between px-4 py-2">
+    <View
+      style={{ paddingTop: top + 18 }}
+      className="w-full flex-row items-center justify-between  bg-PRIMARY px-4 py-6"
+    >
       <View className="w-5/6 flex-row items-center gap-5 pr-4">
         <AntPressbleIcon title="arrow-left" callback={handleBack} />
         <Text className="text-BG_WHITE text-2xl">{title}</Text>
