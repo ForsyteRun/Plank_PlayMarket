@@ -1,12 +1,10 @@
 import type { IExercise, IPLank } from "@/types/plank";
-import { sumExerciceTimes } from "@/utils/sumExerciceTimes";
-import { Dispatch, SetStateAction } from "react";
-import { Text, View } from "react-native";
-import NewPlankForm from "../NewPlankForm";
-import PlankSelectWithModals from "../PlankSelectWithModals";
+import { Dispatch, SetStateAction, useMemo } from "react";
+import SetTimeModal from "../SetTimeModal";
 import AnimatedContent from "../shared/AnimatedContent";
-import SelectablePlankList from "../shared/SelectablePlankList";
-import SubmitInfo from "../shared/SubmitInfo";
+import EditablePlankSection from "./components/EditablePlankSection";
+import SubmittedPlankSection from "./components/SubmittedPlankSection";
+import { usePlankTimeManager } from "./hooks/usePlankTimeManager";
 
 interface IPlankScreenContentProps {
   plank: IPLank;
@@ -25,41 +23,44 @@ export default function PlankScreenContent({
   setTitle,
   setSelectedPlanks,
 }: IPlankScreenContentProps) {
-  const totalExercicesTime = sumExerciceTimes(plank.exercices);
+  const { selectedId, totalExercicesTime, setSelectedId, handleUpdateTime } =
+    usePlankTimeManager(selectedPlanks, setSelectedPlanks);
 
-  const data = {
-    exercices: selectedPlanks.length ? selectedPlanks : plank.exercices,
-    editEnabled: plank.editEnabled,
-    isSubmitted: isSubmitted,
-  };
+  const data = useMemo(
+    () => ({
+      exercices: selectedPlanks.length ? selectedPlanks : plank.exercices,
+      editEnabled: plank.editEnabled,
+      isSubmitted,
+    }),
+    [plank.exercices, plank.editEnabled, isSubmitted]
+  );
 
   return (
-    <AnimatedContent>
-      {plank.editEnabled && !isSubmitted ? (
-        <>
-          <View
-            className="pb-5 pt-2 bg-SECONDARY"
-            style={{ paddingHorizontal: 20 }}
-          >
-            <NewPlankForm
-              title={submittedTitle || plank.title}
-              setTitle={setTitle}
-            />
-            <Text className="text-teal-800">
-              Общее время: {totalExercicesTime}
-            </Text>
-          </View>
-          <PlankSelectWithModals
-            {...data}
+    <>
+      <AnimatedContent>
+        {plank.editEnabled && !isSubmitted ? (
+          <EditablePlankSection
+            plank={plank}
+            submittedTitle={submittedTitle}
+            totalExercicesTime={totalExercicesTime}
+            data={data}
+            setTitle={setTitle}
             setSelectedPlanks={setSelectedPlanks}
+            setSelectedId={setSelectedId}
           />
-        </>
-      ) : (
-        <>
-          <SubmitInfo totalExercicesTime={totalExercicesTime} />
-          <SelectablePlankList {...data} />
-        </>
-      )}
-    </AnimatedContent>
+        ) : (
+          <SubmittedPlankSection
+            totalExercicesTime={totalExercicesTime}
+            data={data}
+          />
+        )}
+      </AnimatedContent>
+      <SetTimeModal
+        id={selectedId}
+        isOpen={!!selectedId}
+        handleBannerOpen={() => setSelectedId("")}
+        handleUpdateTime={handleUpdateTime}
+      />
+    </>
   );
 }

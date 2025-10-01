@@ -1,6 +1,7 @@
-import { IExercise } from "@/types/plank";
+import type { IExercise } from "@/types/plank";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import cn from "classnames";
+import { Dispatch, SetStateAction } from "react";
 import { Image, Pressable, Text, View } from "react-native";
 import BannerCount from "../BannerCount";
 import { SwipeableComponent } from "../SwipeableComponent";
@@ -9,19 +10,23 @@ import UnderlaySwapPlankBanner from "../UnderlaySwapPlankBanner";
 interface IExerciseBannerProps {
   item: IExercise;
   index: number;
-  changeTime?: () => void;
   swipeable: boolean;
+  setSelectedId?: Dispatch<SetStateAction<string>>;
 }
 
 export default function ExerciceBanner({
   item,
   index,
-  changeTime,
   swipeable,
+  setSelectedId,
 }: IExerciseBannerProps) {
+  const onPress = () => {
+    if (swipeable && setSelectedId) setSelectedId(item.id);
+  };
+
   const content = (
     <Pressable
-      onPressIn={changeTime}
+      onPress={onPress}
       className="flex-row items-center justify-between px-5 py-4 bg-white"
     >
       <View className="flex-row items-center gap-4">

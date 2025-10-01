@@ -7,7 +7,7 @@ interface IModalButtonProps {
 
 export default function ModalButton({ text, callback }: IModalButtonProps) {
   return (
-    <Pressable className="px-4 py-2 rounded" onPress={callback}>
+    <Pressable className="px-4 py-2 rounded" onPressIn={callback}>
       <Text className="text-PRIMARY font-bold text-right">{text}</Text>
     </Pressable>
   );

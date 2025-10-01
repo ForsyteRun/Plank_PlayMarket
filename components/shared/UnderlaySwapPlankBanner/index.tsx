@@ -14,7 +14,7 @@ export default function UnderlaySwapPlankBanner<T extends IPLank | IExercise>({
 
   return (
     <View className="flex-1  bg-RED items-end justify-center pr-6">
-      <TouchableOpacity onPress={() => handleDelete(item.id)}>
+      <TouchableOpacity onPressIn={() => handleDelete(item.id)}>
         <MaterialIcons name="delete" size={34} color="white" />
       </TouchableOpacity>
     </View>

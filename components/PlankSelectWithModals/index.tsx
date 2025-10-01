@@ -1,6 +1,4 @@
 import AddPlankModal from "@/components/AddPlankModal";
-import SetTimeModal from "@/components/SetTimeModal";
-import { useOpen } from "@/hooks";
 import type { IExercise } from "@/types/plank";
 import { Dispatch, SetStateAction, useState } from "react";
 import { View } from "react-native";
@@ -11,6 +9,7 @@ interface IPlankSelectWithModalsProps {
   editEnabled: boolean;
   isSubmitted: boolean;
   setSelectedPlanks: Dispatch<SetStateAction<IExercise[]>>;
+  setSelectedId?: Dispatch<SetStateAction<string>>;
 }
 
 export default function PlankSelectWithModals({
@@ -18,24 +17,12 @@ export default function PlankSelectWithModals({
   editEnabled,
   isSubmitted,
   setSelectedPlanks,
+  setSelectedId,
 }: IPlankSelectWithModalsProps) {
   const [newPlankModalVisible, setNewPlankModalVisible] = useState(false);
-  const { isOpen, handleOpen } = useOpen();
-
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-
-  console.log("PlankSelectWithModals");
-
-  const handleBannerClick = (id: string) => {
-    // if (!isSubmitted) {
-    //   setSelectedId(id);
-    //   handleOpen();
-    // }
-  };
 
   return (
     <View className="flex-1">
-      {/* Модалка добавления новой планки */}
       <AddPlankModal
         setSelectedPlanks={setSelectedPlanks}
         newPlankModalVisible={newPlankModalVisible}
@@ -48,16 +35,8 @@ export default function PlankSelectWithModals({
         isSubmitted={isSubmitted}
         swipeable
         setNewPlankModalVisible={setNewPlankModalVisible}
+        setSelectedId={setSelectedId}
       />
-
-      {/* Модалка установки времени для выбранного упражнения */}
-      {selectedId && (
-        <SetTimeModal
-          id={selectedId}
-          isOpen={isOpen}
-          handleBannerOpen={() => handleBannerClick(selectedId)}
-        />
-      )}
     </View>
   );
 }

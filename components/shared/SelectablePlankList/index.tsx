@@ -10,6 +10,7 @@ interface ISelectablePlankListProps {
   isSubmitted: boolean;
   swipeable?: boolean;
   setNewPlankModalVisible?: Dispatch<SetStateAction<boolean>>;
+  setSelectedId?: Dispatch<SetStateAction<string>>;
 }
 
 export default function SelectablePlankList({
@@ -18,6 +19,7 @@ export default function SelectablePlankList({
   isSubmitted,
   swipeable = false,
   setNewPlankModalVisible,
+  setSelectedId,
 }: ISelectablePlankListProps) {
   const renderFooter = () => {
     if (!isSubmitted && editEnabled) {
@@ -37,6 +39,7 @@ export default function SelectablePlankList({
           item={item}
           index={index}
           swipeable={swipeable}
+          setSelectedId={setSelectedId}
         />
       )}
       keyExtractor={(item) => item.id}

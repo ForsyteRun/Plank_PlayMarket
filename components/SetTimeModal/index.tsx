@@ -9,15 +9,15 @@ interface ISetTimeModalProps {
   id: string;
   isOpen: boolean;
   handleBannerOpen: () => void;
+  handleUpdateTime: (id: string, mins: string, sec: string) => void;
 }
 
 export default function SetTimeModal({
   id,
   isOpen,
   handleBannerOpen,
+  handleUpdateTime,
 }: ISetTimeModalProps) {
-  const { setLocalExercises } = useExercises();
-
   const [mins, setMins] = useState("00");
   const [sec, setSec] = useState("00");
 
@@ -27,23 +27,15 @@ export default function SetTimeModal({
       return;
     }
 
-    setLocalExercises((prev) => ({
-      ...prev,
-      exercices: prev.exercices.map((item) =>
-        item.id === id
-          ? {
-              ...item,
-              time: `${String(mins).padStart(2, "0")}:${String(sec).padStart(2, "0")}`,
-            }
-          : item
-      ),
-    }));
+    handleUpdateTime(id, mins, sec);
 
-    handleBannerOpen();
+    setMins("00");
+    setSec("00");
   };
 
   return (
     <BaseModal
+      animationType="fade"
       transparent={true}
       visible={isOpen}
       statusBarTranslucent={true}
