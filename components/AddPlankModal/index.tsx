@@ -34,7 +34,7 @@ export default function AddPlankModal({
           <View className="bg-SECONDARY/50 w-full p-5 rounded-b-xl">
             <Pressable
               className="px-4 py-2 rounded"
-              onPressIn={() => setNewPlankModalVisible(false)}
+              onPress={() => setNewPlankModalVisible(false)}
             >
               <Text className="text-PRIMARY font-bold text-right">
                 Отменить

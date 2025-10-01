@@ -47,9 +47,7 @@ export default function SelectExerciseList({
 
         return (
           <Pressable
-            onPressIn={() =>
-              selectExercice([item[0] as TExerciceType, item[1]])
-            }
+            onPress={() => selectExercice([item[0] as TExerciceType, item[1]])}
             className={cn(
               "w-full h-20 flex-row items-center justify-between gap-2 bg-gray-100  border-b border-LIGHT_GREY px-5",
               {
