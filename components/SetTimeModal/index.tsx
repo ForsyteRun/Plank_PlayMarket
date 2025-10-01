@@ -1,4 +1,3 @@
-import { useExercises } from "@/context/ExerciseContext";
 import { useState } from "react";
 import { View } from "react-native";
 import BaseModal from "../shared/BaseModal";
