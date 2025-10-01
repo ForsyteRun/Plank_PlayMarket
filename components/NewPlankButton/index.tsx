@@ -1,4 +1,4 @@
-import { INIT_PLANK } from "@/data/defaultPlank";
+import { createInitPlank } from "@/data/defaultPlank";
 import { useNavigateToPlankScreen } from "@/hooks";
 import { Pressable, Text } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -10,7 +10,7 @@ export default function NewPlankButton() {
 
   return (
     <Pressable
-      onPressIn={() => navigateToPlankScreen(INIT_PLANK)}
+      onPressIn={() => navigateToPlankScreen(createInitPlank())}
       style={{ bottom: bottom + 30, right: right + 20 }}
       className="absolute bottom right-8 h-16 w-16 items-center justify-center rounded-2xl bg-ORANGE elevation-md"
     >

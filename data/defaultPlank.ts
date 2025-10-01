@@ -1,4 +1,5 @@
 import type { IPLank, TExerciceType } from "@/types/plank";
+import { getUniqueId } from "@/utils/getUniqueId";
 import type { ImageSourcePropType } from "react-native";
 import { INIT_TITLE } from "./header";
 
@@ -48,10 +49,10 @@ export const defaultPlankList: IPLank[] = [
   })),
 }));
 
-export const INIT_PLANK: IPLank = {
-  id: new Date().getTime().toString(),
+export const createInitPlank = (): IPLank => ({
+  id: getUniqueId(),
   title: INIT_TITLE,
   exercices: [],
   count: 0,
   editEnabled: true,
-};
+});
