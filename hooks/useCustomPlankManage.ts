@@ -1,7 +1,9 @@
+import type { IPLank } from "@/types/plank";
 import { useCallback } from "react";
+import { useActions } from ".";
 import { usePlankFormState } from "./usePlankFormState";
 
-export const useCustomPlankManage = (initialTitle: string) => {
+export const useCustomPlankManage = (plank: IPLank) => {
   const {
     title,
     isSubmitted,
@@ -11,40 +13,32 @@ export const useCustomPlankManage = (initialTitle: string) => {
     setIsSubmitted,
     setSelectedPlanks,
     setSubmittedTitle,
-  } = usePlankFormState(initialTitle);
+  } = usePlankFormState(plank);
 
-  const handleSubmit = useCallback(
-    () => {
-      // if (submitted) return;
-      // setExercises((prev) =>
-      //   createOrUpdatePlank(prev, localExercises, title, INIT_TITLE)
-      // );
-      // setLocalExercises(INIT_PLANK);
-      // setSubmittedTitle(title.trim() || INIT_TITLE);
-      // setSubmitted(true);
-      // setEdit(false);
-    },
-    [
-      // localExercises,
-      // // title,
-      // setExercises,
-      // setLocalExercises,
-      // setSubmittedTitle,
-      // setSubmitted,
-      // setEdit,
-    ]
-  );
+  const { setCustomExercises } = useActions();
 
   const handleEdit = useCallback(
     (value: "edit" | "submit") => {
       if (value === "edit") {
         setIsSubmitted(false);
       } else if (value === "submit") {
-        setSubmittedTitle(title.trim());
+        const newTitle = title.trim();
+
+        const plantToSave: IPLank = {
+          id: plank.id,
+          title: newTitle,
+          count: 0,
+          editEnabled: true,
+          exercices: selectedPlanks,
+        };
+
+        setCustomExercises(plantToSave);
+
+        setSubmittedTitle(newTitle);
         setIsSubmitted(true);
       }
     },
-    [isSubmitted, title, setIsSubmitted]
+    [plank.id, isSubmitted, title, selectedPlanks.length, setIsSubmitted]
   );
 
   return {
@@ -53,10 +47,8 @@ export const useCustomPlankManage = (initialTitle: string) => {
     selectedPlanks,
 
     setSelectedPlanks,
-    setIsSubmitted,
     setTitle,
 
-    handleSubmit,
     handleEdit,
   };
 };

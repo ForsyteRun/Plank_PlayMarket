@@ -1,17 +1,18 @@
 import ListTitle from "@/components/shared/ListTitle";
-import { useExercises } from "@/context/ExerciseContext";
-import { FlatList, View } from "react-native";
+import { useAppSelector } from "@/store/hooks";
+import { FlashList } from "@shopify/flash-list";
+import { View } from "react-native";
 import UserPlank from "./component/UserPlank";
 
 export default function UserPlankList() {
-  const { exercises } = useExercises();
+  const customExercises = useAppSelector((state) => state.exercises.custom);
 
   return (
     <View className="flex-1">
       <ListTitle title="Пользовательские упражнения" />
 
-      <FlatList
-        data={exercises.custom}
+      <FlashList
+        data={customExercises}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <UserPlank plank={item} key={item.id} editEnabled={true} />

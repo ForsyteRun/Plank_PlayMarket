@@ -1,6 +1,7 @@
 import PlankScreenContent from "@/components/PlankScreenContent";
 import Header from "@/components/shared/Header";
-import { useCustomPlankManage, useParsedParams } from "@/hooks";
+import { useParsedParams } from "@/hooks";
+import { useCustomPlankManage } from "@/hooks/useCustomPlankManage";
 import type { IPLank } from "@/types/plank";
 import {
   SafeAreaView,
@@ -21,7 +22,7 @@ export default function PlankScreen() {
     setSelectedPlanks,
     setTitle,
     handleEdit,
-  } = useCustomPlankManage(plank.title);
+  } = useCustomPlankManage(plank);
 
   return (
     <SafeAreaView

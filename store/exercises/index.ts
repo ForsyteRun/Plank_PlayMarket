@@ -16,14 +16,18 @@ const exercisesSlice = createSlice({
   name: "exercises",
   initialState,
   reducers: {
-    setCustomExercises: (
-      state: InitialState,
-      action: PayloadAction<IPLank>
-    ) => {
-      state.custom = state.custom.map((item) =>
-        item.id === action.payload.id ? action.payload : item
+    setCustomExercises: (state, action: PayloadAction<IPLank>) => {
+      const index = state.custom.findIndex(
+        (item) => item.id === action.payload.id
       );
+
+      if (index !== -1) {
+        state.custom[index] = action.payload;
+      } else {
+        state.custom.push(action.payload);
+      }
     },
+
     removeCustomExercises: (
       state: InitialState,
       action: PayloadAction<string>
