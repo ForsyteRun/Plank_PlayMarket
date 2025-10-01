@@ -17,7 +17,7 @@ const Header = memo(
     const { isOpen, handleOpen } = useOpen();
 
     const handleBack = () => {
-      if (!isSubmitted) {
+      if (!isSubmitted && editEnabled) {
         handleOpen();
       } else {
         navigateToDrawerScreen();
