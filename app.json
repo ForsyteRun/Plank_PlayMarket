@@ -1,5 +1,6 @@
 {
   "expo": {
+    "jsEngine": "hermes",
     "name": "Plank_PlayMarket",
     "slug": "Plank_PlayMarket",
     "version": "1.0.0",
@@ -35,7 +36,8 @@
           "resizeMode": "contain",
           "backgroundColor": "#3BA79B"
         }
-      ]
+      ],
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true,
