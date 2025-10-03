@@ -1,4 +1,4 @@
-import { Dispatch, default as React, SetStateAction, memo } from "react";
+import { default as React, RefObject, memo, useCallback } from "react";
 import { Text } from "react-native";
 import WheelPickerExpo from "react-native-wheel-picker-expo";
 
@@ -7,10 +7,20 @@ interface IWheelPickerProps {
     label: string;
     value: number;
   }[];
-  setValue: Dispatch<SetStateAction<string>>;
+  timeRef: RefObject<string>;
 }
 
-export default function WheelPicker({ data, setValue }: IWheelPickerProps) {
+export default function WheelPicker({ data, timeRef }: IWheelPickerProps) {
+  const handleChange = useCallback(
+    (index: number) => {
+      const selected = data[index];
+      if (selected) {
+        timeRef.current = selected.value.toString();
+      }
+    },
+    [data, timeRef]
+  );
+
   return (
     <WheelPickerExpo
       height={200}
@@ -18,7 +28,7 @@ export default function WheelPicker({ data, setValue }: IWheelPickerProps) {
       items={data}
       renderItem={({ label }) => <WhileItem label={label} />}
       backgroundColor="#cffaf2"
-      onChange={({ item }) => setValue(item.label)}
+      onChange={({ index }) => handleChange(index)}
       flatListProps={{
         decelerationRate: 1,
         scrollEventThrottle: 10,

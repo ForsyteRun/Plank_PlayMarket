@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useRef } from "react";
 import { View } from "react-native";
 import BaseModal from "../shared/BaseModal";
 import ExericiceList from "./components/ExericiceList";
@@ -18,20 +18,20 @@ export default function SetTimeModal({
   handleBannerOpen,
   handleUpdateTime,
 }: ISetTimeModalProps) {
-  const [mins, setMins] = useState("00");
-  const [sec, setSec] = useState("00");
+  const minsRef = useRef("00");
+  const secRef = useRef("00");
 
-  const handleTime = () => {
-    if (mins === "00" && sec === "00") {
-      setSec("20");
+  const handleTime = useCallback(() => {
+    if (minsRef.current === "00" && secRef.current === "00") {
+      secRef.current = "20";
       return;
     }
 
-    handleUpdateTime(id, mins, sec);
+    handleUpdateTime(id, minsRef.current, secRef.current);
 
-    setMins("00");
-    setSec("00");
-  };
+    minsRef.current = "00";
+    secRef.current = "00";
+  }, [minsRef, secRef, id]);
 
   return (
     <BaseModal
@@ -44,7 +44,7 @@ export default function SetTimeModal({
       <View className="w-full flex-1 justify-center items-center bg-black/50">
         <View className="flex w-[320px] bg-[#cffaf2] rounded-lg items-center overflow-hidden">
           <Title />
-          <ExericiceList setMins={setMins} setSec={setSec} />
+          <ExericiceList minsRef={minsRef} secRef={secRef} />
           <Footer handleTime={handleTime} handleBannerOpen={handleBannerOpen} />
         </View>
       </View>

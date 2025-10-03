@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, memo } from "react";
+import { RefObject, memo } from "react";
 import { Text, View } from "react-native";
 import WheelPicker from "../WheelPicker";
 
@@ -10,25 +10,25 @@ const TIMES = Array.from({ length: 60 }, (_, i) => ({
 const LOOP_DATA = Array.from({ length: 100 }, () => TIMES).flat();
 
 interface IExericiceListProps {
-  setMins: Dispatch<SetStateAction<string>>;
-  setSec: Dispatch<SetStateAction<string>>;
+  minsRef: RefObject<string>;
+  secRef: RefObject<string>;
 }
 
 export default function ExericiceList({
-  setMins,
-  setSec,
+  minsRef,
+  secRef,
 }: IExericiceListProps) {
   return (
     <View className="flex-row justify-center items-center gap-2">
       <View className="relative">
-        <WheelPicker data={LOOP_DATA} setValue={setMins} />
+        <WheelPicker data={LOOP_DATA} timeRef={minsRef} />
         <BorderItem />
       </View>
 
       <Text className="text-2xl text-black mx-1">:</Text>
 
       <View className="relative">
-        <WheelPicker data={LOOP_DATA} setValue={setSec} />
+        <WheelPicker data={LOOP_DATA} timeRef={secRef} />
         <BorderItem />
       </View>
     </View>
