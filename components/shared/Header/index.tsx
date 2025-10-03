@@ -1,4 +1,4 @@
-import { useNavigateToDrawerScreen, useOpen } from "@/hooks";
+import { useOpen } from "@/hooks";
 import { memo } from "react";
 import { View } from "react-native";
 import AttentionModal from "../AttentionModal";
@@ -13,20 +13,12 @@ interface INewPlankHeaderProps {
 
 const Header = memo(
   ({ title, isSubmitted, editEnabled, handleEdit }: INewPlankHeaderProps) => {
-    const { navigateToDrawerScreen } = useNavigateToDrawerScreen();
     const { isOpen, handleOpen } = useOpen();
 
     const handleBack = () => {
       if (!isSubmitted && editEnabled) {
         handleOpen();
-      } else {
-        navigateToDrawerScreen();
       }
-    };
-
-    const handleYes = () => {
-      handleOpen();
-      navigateToDrawerScreen();
     };
 
     return (
@@ -44,8 +36,7 @@ const Header = memo(
           noBtn="Нет"
           yesBtn="Да"
           isOpen={isOpen}
-          handleOpen={handleOpen}
-          handleYes={handleYes}
+          handleTap={handleOpen}
         />
       </View>
     );

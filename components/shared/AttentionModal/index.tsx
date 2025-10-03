@@ -1,6 +1,7 @@
 import Entypo from "@expo/vector-icons/Entypo";
 import { Text, View } from "react-native";
 import BaseModal from "../BaseModal";
+import TapWrapper from "../TapWrapper";
 import ModalButton from "./components/ModalButton";
 interface IAttentionModalProps {
   isOpen: boolean;
@@ -8,8 +9,7 @@ interface IAttentionModalProps {
   text: string;
   yesBtn: string;
   noBtn: string;
-  handleOpen: () => void;
-  handleYes: () => void;
+  handleTap: (value: "yes" | "no") => void;
 }
 
 export default function AttentionModal({
@@ -18,8 +18,7 @@ export default function AttentionModal({
   text,
   yesBtn,
   noBtn,
-  handleOpen,
-  handleYes,
+  handleTap,
 }: IAttentionModalProps) {
   return (
     <BaseModal
@@ -27,7 +26,7 @@ export default function AttentionModal({
       transparent={true}
       visible={isOpen}
       statusBarTranslucent={true}
-      onRequestClose={handleOpen}
+      onRequestClose={() => handleTap("no")}
     >
       <View className="flex-1 justify-center items-center bg-black/50">
         <View className="bg-SECONDARY/90 rounded-3xl items-center p-5">
@@ -37,8 +36,10 @@ export default function AttentionModal({
             <Text className="text-sm text-black">{text}</Text>
           </View>
           <View className="flex-row self-end gap-5 mt-8 mb-6">
-            <ModalButton text={noBtn} callback={handleOpen} />
-            <ModalButton text={yesBtn} callback={handleYes} />
+            <ModalButton text={noBtn} handleOpen={() => handleTap("no")} />
+            <TapWrapper navigatePath="/(drawer)">
+              <ModalButton text={yesBtn} handleOpen={() => handleTap("yes")} />
+            </TapWrapper>
           </View>
         </View>
       </View>

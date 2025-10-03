@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { Modal, ModalBaseProps } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 interface IBaseModalProps extends ModalBaseProps {
   statusBarTranslucent?: boolean;
@@ -12,7 +13,9 @@ export default function BaseModal({
 }: IBaseModalProps) {
   return (
     <Modal {...props} statusBarTranslucent={statusBarTranslucent}>
-      {children}
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        {children}
+      </GestureHandlerRootView>
     </Modal>
   );
 }
