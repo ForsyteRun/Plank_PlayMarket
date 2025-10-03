@@ -1,11 +1,11 @@
 import AttentionModal from "@/components/shared/AttentionModal";
 import PlankBanner from "@/components/shared/PlankBanner";
 import { SwipeableComponent } from "@/components/shared/SwipeableComponent";
+import TapWrapper from "@/components/shared/TapWrapper";
 import UnderlaySwapPlankBanner from "@/components/shared/UnderlaySwapPlankBanner";
-import { useActions, useNavigateToPlankScreen, useOpen } from "@/hooks";
+import { useActions, useOpen } from "@/hooks";
 import type { IPLank } from "@/types/plank";
-import { SwipeableComponentProps } from "@/types/swipeableComponentProps";
-import { Pressable } from "react-native";
+import type { SwipeableComponentProps } from "@/types/swipeableComponentProps";
 
 interface IUserPlankProps
   extends Pick<SwipeableComponentProps<IPLank>, "swipeEnabled"> {
@@ -18,7 +18,6 @@ export default function UserPlank({
   editEnabled,
   ...rest
 }: IUserPlankProps) {
-  const { navigateToPlankScreen } = useNavigateToPlankScreen();
   const { isOpen, handleOpen } = useOpen();
 
   const { removeCustomExercises } = useActions();
@@ -27,8 +26,11 @@ export default function UserPlank({
     handleOpen();
   };
 
-  const handleDeletePlank = () => {
-    removeCustomExercises(plank.id);
+  const handleTap = (value: "yes" | "no") => {
+    if (value === "yes") {
+      removeCustomExercises(plank.id);
+    }
+
     handleOpen();
   };
 
@@ -47,7 +49,7 @@ export default function UserPlank({
         overSwipe={0}
         {...rest}
       >
-        <Pressable onPress={() => navigateToPlankScreen(plank)}>
+        <TapWrapper<IPLank> navigatePath="/plankScreen" data={plank}>
           <PlankBanner
             id={plank.id}
             title={plank.title}
@@ -55,7 +57,7 @@ export default function UserPlank({
             count={plank.count}
             editEnabled={plank.editEnabled}
           />
-        </Pressable>
+        </TapWrapper>
       </SwipeableComponent>
       <AttentionModal
         title="Удалить упражнение?"
@@ -63,8 +65,7 @@ export default function UserPlank({
         isOpen={isOpen}
         noBtn="Отменить"
         yesBtn="Удалить"
-        handleOpen={handleOpen}
-        handleYes={handleDeletePlank}
+        handleTap={handleTap}
       />
     </>
   );

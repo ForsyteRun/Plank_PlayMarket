@@ -1,5 +1,6 @@
 import AntPressbleIcon from "@/components/shared/AntIcon";
 import FeatherPressbleIcon from "@/components/shared/FatherIcon";
+import TapWrapper from "@/components/shared/TapWrapper";
 import { Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -26,7 +27,9 @@ export default function HeaderContent({
       className="w-full flex-row items-center justify-between  bg-PRIMARY px-4 py-6"
     >
       <View className="w-5/6 flex-row items-center gap-5 pr-4">
-        <AntPressbleIcon title="arrow-left" callback={handleBack} />
+        <TapWrapper navigatePath="/(drawer)">
+          <AntPressbleIcon title="arrow-left" callback={handleBack} />
+        </TapWrapper>
         <Text className="text-BG_WHITE text-2xl">{title}</Text>
       </View>
       {editEnabled &&
