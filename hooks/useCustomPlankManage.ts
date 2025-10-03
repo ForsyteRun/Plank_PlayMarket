@@ -38,7 +38,7 @@ export const useCustomPlankManage = (plank: IPLank) => {
         setIsSubmitted(true);
       }
     },
-    [plank.id, isSubmitted, title, selectedPlanks.length, setIsSubmitted]
+    [plank.id, isSubmitted, title, selectedPlanks, setIsSubmitted]
   );
 
   return {
