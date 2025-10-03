@@ -3,7 +3,9 @@ import "./../global.css";
 
 import StoreProvider from "@/providers/storeProvider";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { enableScreens } from "react-native-screens";
 
+enableScreens();
 export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
