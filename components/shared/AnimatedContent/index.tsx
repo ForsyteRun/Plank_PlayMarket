@@ -17,8 +17,13 @@ export default function AnimatedContent({ children }: AnimatedContentProps) {
     transform: [{ translateX: translateX.value }],
   }));
 
-  useEffect(() => {
+  const slideIn = () => {
+    "worklet";
     translateX.value = withTiming(0, { duration: 300 });
+  };
+
+  useEffect(() => {
+    slideIn();
   }, []);
 
   return (
